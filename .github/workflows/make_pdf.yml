@@ -27,4 +27,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: mkdir -p pdf && cd pdf && npx @marp-team/marp-cli@latest -I ../markdown -o . -y --pdf
+        run: sudo mkdir -p pdf && cd pdf && sudo npx @marp-team/marp-cli@latest -I ../markdown -o . -y --pdf
