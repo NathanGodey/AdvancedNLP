@@ -15,11 +15,17 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  make-chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: browser-actions/setup-chrome@v1
+      - run: chrome --version
+
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -27,4 +33,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: sudo mkdir -p pdf && cd pdf && sudo npx @marp-team/marp-cli@latest -I ../markdown -o . -y --pdf
+        run: sudo npx @marp-team/marp-cli@latest -I markdown -o pdf -y --pdf
