@@ -15,11 +15,6 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  make-chrome:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: browser-actions/setup-chrome@v1
-      - run: chrome --version
 
   # This workflow contains a single job called "build"
   build:
@@ -29,7 +24,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: browser-actions/setup-chrome@v1
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
