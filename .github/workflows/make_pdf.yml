@@ -25,9 +25,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: browser-actions/setup-chrome@v1
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: sudo npx @marp-team/marp-cli@latest -I markdown -o pdf -y --pdf
+      - name: Marp Build
+        uses: docker://marpteam/marp-cli
+        with:
+          args: -I markdown -o pdf -y --pdf
+        env:
+          MARP_USER: root:root
