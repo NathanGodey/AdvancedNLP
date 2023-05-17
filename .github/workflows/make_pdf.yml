@@ -25,9 +25,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
+      - name: write file
+        run: echo "write something" >> test.txt
+      
       - name: Marp Build
         uses: docker://marpteam/marp-cli
         with:
-          args: -I markdown -o . -y --pdf
+          args: -I markdown -o ./ -y --pdf
         env:
           MARP_USER: root:root
