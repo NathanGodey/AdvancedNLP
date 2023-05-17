@@ -25,8 +25,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: write file
-        run: echo "something" | sudo tee -a test.txt
+      - name: show files
+        run: ls
       
       - name: Marp Build
         uses: docker://marpteam/marp-cli
@@ -34,3 +34,6 @@ jobs:
           args: -I markdown -o ./ -y --pdf
         env:
           MARP_USER: root:root
+      
+      - name: show files
+        run: ls
