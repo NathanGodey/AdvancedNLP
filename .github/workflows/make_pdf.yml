@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: make pdfs
 
 permissions:
   contents: write
@@ -33,7 +33,7 @@ jobs:
       - name: Marp Build
         uses: docker://marpteam/marp-cli
         with:
-          args: -I markdown -o ./ -y --pdf
+          args: -I markdown -o slides -y --pdf
         env:
           MARP_USER: root:root
       
