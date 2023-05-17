@@ -2,6 +2,8 @@
 
 name: CI
 
+permissions:
+  contents: write
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -34,11 +36,3 @@ jobs:
           args: -I markdown -o ./ -y --pdf
         env:
           MARP_USER: root:root
-      
-      - name: show files
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "generated"
-          git push
