@@ -33,7 +33,7 @@ jobs:
       - name: Marp Build
         uses: docker://marpteam/marp-cli
         with:
-          args: -I markdown -o slides -y --pdf
+          args: -I markdown -o slides -y --pdf --html
         env:
           MARP_USER: root:root
       
