@@ -30,14 +30,14 @@ jobs:
       - name: Marp Build
         uses: docker://marpteam/marp-cli
         with:
-          args: -I markdown -o slides -y --html
+          args: -I markdown -o slides -y --html --allow-local-files
         env:
           MARP_USER: root:root
           
       - name: Marp Build
         uses: docker://marpteam/marp-cli
         with:
-          args: -I markdown -o slides/pdf -y --pdf --html
+          args: -I markdown -o slides/pdf -y --pdf --html --allow-local-files
         env:
           MARP_USER: root:root
       
