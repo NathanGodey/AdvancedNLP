@@ -353,7 +353,10 @@ Unigram is working in the opposite direction:
 :warning: A string of length $n$ has $O(2^n)$ possible segmentations :warning:
 
 &rarr; Unigram is using the <mark>Viterbi</mark> algorithm:
-* Observation: $P(S^*(w_{:i+1})) \leq P(S^*(w_{:i}))$ <small>($S^*$: best segmentation)</small>
+* Observation: 
+    * for all $i$ and $j$ indexes:
+        * if the optimal segmentation $S^*(w_{:i})$ is known...
+        * ... then all segmentations of type $S(w_{:i}) + w_{i:j}$ where $S(w_{:i}) \neq S^*(w_{:i})$ are <mark>suboptimal</mark>
 
 ---
 
@@ -389,7 +392,7 @@ Example: *email*
     * For all <ins>ending letters</ins>, what is the best segmentation if last token starts from *a*? **(hence after *e* /*m*)**
         * S(*e* /*m* /*a*) = 0.023
         ...
-        * S(*e* /*m*/*ail*) = 0.001
+        * S(*e* /*m*/*ail*) = $\infty$ (*ail* is not in vocab)
 * Remark: we've seen S(*ema*), ..., S(*e* /*m*/ *a*) &rarr; we know the best segmentation that ends at *a* ! (here: *e* /*ma* is best)
 
 ---
@@ -415,13 +418,13 @@ Example: *email*
 Takeaway: At each *start* position, we know what the best segmentation up to *start* is => we just need to explore after *start*
 
 ---
-### Unigram - Training
+### Unigram - Training (&#x2248;)
 
 * Start from a very big vocabulary
 * Infer on all pre-tokenized units $w \in W$ and get total score as:
 
 ---
-### Unigram - Training
+### Unigram - Training (&#x2248;)
 
 - Start from a very big vocabulary
 - Infer on all pre-tokenized units $w \in W$ and get total score as:
@@ -429,7 +432,7 @@ $$
 score(V, W) = \sum_{w=(t_1...t_n) \in W} -\log(P(t_1)\times ... \times P(t_n))
 $$
 * For all token $t$, compute $score(V - \{t\}, W)$
-* Remove the token that **least decreases** the score when removed
+* Get rid of the 20% tokens that **least decrease** the score when removed
 * Iterate :repeat: <small>(until you have desired vocabulary size)</small>
 
 ---
@@ -446,12 +449,12 @@ $$
     * ... is not robust to misspellings
 
 ```python
-bpe("artificial intelligence is real bro") => 'artificial', 'intelligence', 'is', 'real', 'bro'
+bpe("artificial intelligence is real") => 'artificial', 'intelligence', 'is', 'real'
 ```
 
 ```python
-bpe("aritificial inteligense is reaal bro") => 
-'ari', '##ti', '##fi', '##cial', 'intel', '##igen', '##se', 'is', 're', '##aa', '##l', 'bro'
+bpe("aritificial inteligense is reaal") => 
+'ari', '##ti', '##fi', '##cial', 'intel', '##igen', '##se', 'is', 're', '##aa', '##l'
 ```
 
 ---
