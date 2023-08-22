@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: make pdfs
+name: make slides
 
 permissions:
   contents: write
@@ -27,13 +27,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: show files
-        run: ls
-      
       - name: Marp Build
         uses: docker://marpteam/marp-cli
         with:
-          args: -I markdown -o slides -y
+          args: -I markdown -o slides -y --html --allow-local-files
+        env:
+          MARP_USER: root:root
+          
+      - name: Marp Build
+        uses: docker://marpteam/marp-cli
+        with:
+          args: -I markdown -o slides/pdf -y --pdf --html --allow-local-files
         env:
           MARP_USER: root:root
       
