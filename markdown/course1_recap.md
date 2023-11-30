@@ -105,7 +105,7 @@ marp: true
     <div style="flex: 33%;">
         <center>
         <img width="200px" src="../imgs/course1/matthieu.jpeg"/></br>
-        Matthieu <br/>Futeral-Peter</center>
+        Matthieu <br/>Futeral-Peter <small>(mail:futeral)</small></center>
     </div>
     <div style="flex: 33%;">
         <center>
@@ -119,8 +119,11 @@ marp: true
     </div>
 </div>
 
+<center><pre>firstname.name@inria.fr</pre></center>
+
 ---
 ### Course organization
+
 * Part 1
     * ***When :*** 4 days (30/11, 07/12, 14/12, 21/12)
     * ***Subject :*** General NLP
@@ -128,16 +131,52 @@ marp: true
 
 ---
 ### Evaluation
-* Group project
+* Group project (4-5 people)
 * Two options
-    * ***Demo*** <br>Use a well-known approach to produce a MVP for an <ins>original</ins> use-case and present it in a demo. *Example: An online platform that detects AI-generated text.*<br>
-    * ***Research project*** <br> Based on a research article, experiment on original ideas and produce a report. *Example: Do we need Next Sentence Prediction in BERT? (Answer: No)*
+    * *Demo*
+    * *R&D project*
+
+---
+### Evaluation - Demo (option 1)
+
+Use a well-known approach to produce a MVP for an <ins>original</ins> use-case and present it in a demo. 
+
+*Example: An online platform that detects AI-generated text.*<br>
+
+---
+### Evaluation - R&D project (option 2)
+
+Based on a research article, conduct original experiments and produce a report. 
+
+
+*Example: Do we need Next Sentence Prediction in BERT? (Answer: No)*
 
 ---
 ### Evaluation
-* Attendance (10%)
 * Mid-term project evaluation (30%)
-* Final project defense (60%)
+    * Project proposal
+    * First elements
+    * ~January
+* Final project (70%)
+    * Short report showing each person's contribution
+    * Github repo
+
+---
+### Evaluation
+* You can already constitute teams
+* Send an email with:
+    * Names of team members
+    * cc to everyone in the team
+    * *Demo* or *R&D*
+    * One-sentence description of project
+* If you really have no idea what to do, <ins>ask me</ins>
+
+---
+### Program
+* **Session 1 (Today)**: Recap
+* **Session 2 (7/12)**: Tokenization
+* **Session 3 (14/12)**: Language Modeling
+* **Session 4 (21/12)**: Modern NLP with limited resources
 
 ---
 <!--_class: lead -->
