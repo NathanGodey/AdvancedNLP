@@ -74,7 +74,7 @@ that are split into...<br>
 
 ### Tokenization & ML
 
-Machine Learning relies on **sub-word** tokenization:
+ML-based NLP (mostly) relies on **sub-word** tokenization:
 *  Gives better performance
 *  **Fixed-size vocabulary** often required
     * Out-Of-Vocabulary (OOV) issue
@@ -280,23 +280,6 @@ tokenized = [
 &rarr; English common words (a, and, on, is, ...)
 &rarr; `and` vs `and_`
 
----
-
-### BPE Training - iteration 14 (final)
-```python
-tokenized = [
-    ['e', 'd', 'u', 'cat', 'i', 'on_'], ['is', '_'], ['ver', 'y', '_'], ['i', 'm', 'p', 'o', 'r', 't', 'an', 't', '_'], ['!', '_'],
-    ['a_'], ['cat', '_'], ['and_'], ['a_'], ..., ['on_'], ['an', '_'], ['is', 'l', 'and_'],
-    ['w', 'e'], ["'"], ..., ['l', 'and', 'i', 'n', 'g_'], ['i', 'n_'], ['ca', 'b', 'o', '_'], ['ver', 'd', 'e_']
-]
-```
-"Created" tokens:
-```python
-['an', 'ca', 'n_', 've', 'and', 'cat', 'on_', 'is', 'ver', 'a_', 'and_', 'g_', 'e_']
-```
-
-&rarr; English common words (a, and, on, is, ...)
-&rarr; `and` vs `and_`
 
 ---
 
@@ -392,7 +375,7 @@ Example: *email*
     * For all <ins>ending letters</ins>, what is the best segmentation if last token starts from *a*? **(hence after *e* /*m*)**
         * S(*e* /*m* /*a*) = 0.023
         ...
-        * S(*e* /*m*/*ail*) = $\infty$ (*ail* is not in vocab)
+        * S(*e* /*m* /*ail*) = $\infty$ (*ail* is not in vocab)
 * Remark: we've seen S(*ema*), ..., S(*e* /*m*/ *a*) &rarr; we know the best segmentation that ends at *a* ! (here: *e* /*ma* is best)
 
 ---
@@ -403,7 +386,7 @@ Example: *email*
 * Starting from letter *i*
     * For all <ins>ending letters</ins>, what is the best segmentation if last token starts from *i* ? (hence after *e* /*ma*)
         * S(*e* /*ma* /*i* ) = 0.004
-        * S(*e* /*ma*/ *il* ) = 0.03
+        * S(*e* /*ma* / *il* ) = 0.03
 * Remark: we only have 2 candidates left! (here: *ema* /*i* is best)
 
 ---
@@ -429,7 +412,7 @@ Takeaway: At each *start* position, we know what the best segmentation up to *st
 - Start from a very big vocabulary
 - Infer on all pre-tokenized units $w \in W$ and get total score as:
 $$
-score(V, W) = \sum_{w=(t_1...t_n) \in W} -\log(P(t_1)\times ... \times P(t_n))
+score(V, W) = \sum_{w=(t_1...t_n) \in W} -\log(P_V(t_1)\times ... \times P_V(t_n))
 $$
 * For all token $t$, compute $score(V - \{t\}, W)$
 * Get rid of the 20% tokens that **least decrease** the score when removed
@@ -458,7 +441,7 @@ bpe("aritificial inteligense is reaal") =>
 ```
 
 ---
-### Alternatives - BPE dropout
+### Alternatives - BPE dropout <small> (Provilkov et al.) </small>
 
 &rarr; Randomly removes part of the vocabulary during training
 <br>
@@ -467,11 +450,11 @@ bpe("aritificial inteligense is reaal") =>
 => makes models more robust to misspellings
 
 ---
-### Alternatives - CharacterBERT
+### Alternatives - CharacterBERT <small> (El Boukkouri et al.) </small>
 <center><img width=500px src='../imgs/course2/character_bert.png'/></center>
 
 ---
-### Alternatives - ByT5
+### Alternatives - ByT5 <small> (Xue et al.) </small>
 
 - Gives directly bytes (~characters) as inputs to the model
 <center><img width=900px src='../imgs/course2/byt5.png'/></center>
@@ -479,7 +462,7 @@ bpe("aritificial inteligense is reaal") =>
 => more robust and data efficient BUT ~10 times slower and more hardware consumption
 
 ---
-### Neural tokenization - CANINE
+### Neural tokenization - CANINE <small> (Clark et al.) </small>
 
 - Downsamples characters into 4$\times$ smaller sequences
 <center><img width=800px src='../imgs/course2/canine.png'/></center>
@@ -488,9 +471,14 @@ bpe("aritificial inteligense is reaal") =>
 
 
 ---
-### Neural tokenization - MANTa
+### Neural tokenization - MANTa <small> (Godey et al.) </small>
 - Allows the language model to learn its *own* mapping
 <center><img width=800px src='../imgs/course2/manta.gif'/></center>
+
+---
+### Neural tokenization - MEGABYTE <small> (Yu et al.) </small>
+- Encode and then decode autoregressively
+<center><img width=500px src='../imgs/course2/megabyte.png'/></center>
 
 ---
 ### Takeaways

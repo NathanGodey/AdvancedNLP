@@ -275,6 +275,111 @@ where $d_h$ is the hidden dimension of the model
 
 ---
 ### Inside Transformers : Output layer
-- Avoids gradient explosion
-
+<br>
 <center><img width="400px" src="../imgs/course3/final_proj.svg"/></center>
+
+---
+<!--_class: lead -->
+# Encoder Models
+
+---
+### Masked Language Models
+
+<center><img width="1000px" src="../imgs/course3/mlm.svg"/></center>
+
+---
+### BERT (Devlin et al., 2018)
+- Pre-trained on 128B tokens from Wikipedia + BooksCorpus
+- Additional Next Sentence Prediction (NSP) loss
+- Two versions:
+  - BERT-base (110M parameters)
+  - BERT-large (350M parameters)
+- **Cost**: ~1000 GPU hours
+
+---
+### RoBERTa (Liu et al., 2019)
+- Pre-trained on <s>128B</s> **2T** tokens from web data (BERT x10)
+- **No more** Next Sentence Prediction (NSP) loss
+- Two versions:
+  - RoBERTa-base (110M parameters)
+  - RoBERTa-large (350M parameters)
+- Better results in downstream tasks
+- **Cost**: ~25000 GPU hours
+
+---
+### Multilingual BERT (mBERT)
+- Pre-trained on 128B tokens from multilingual Wikipedia
+- 104 languages
+- One version:
+  - mBERT-base (179M parameters)
+- **Cost**: *unknown*
+
+---
+### XLM-RoBERTa (Conneau et al., 2019)
+- Pre-trained on **63T** tokens from CommonCrawl
+- 100 languages
+- Two versions:
+  - XLM-RoBERTa-base (279M parameters)
+  - XLM-RoBERTa-large (561M parameters)
+- **Cost**: ~75000 GPU hours
+
+---
+### ELECTRA (Clark et al., 2020)
+<center><img width="750px" src="../imgs/course3/electra.png"/></center>
+<center><img width="550px" src="../imgs/course3/electra_perf.png"/></center>
+
+---
+### ELECTRA (Clark et al., 2020)
+- Pre-trained on **63T** tokens from CommonCrawl
+- 100 languages
+- Three versions:
+  - ELECTRA-small (14M parameters)
+  - ELECTRA-base (110M parameters)
+  - ELECTRA-large (350M parameters)
+- Really better than BERT/RoBERTa
+- **Cost**: =BERT
+
+---
+### Encoders: Fine-tuning
+<center><img width="750px" src="../imgs/course3/finetuning.svg"/></center>
+
+---
+### Encoders: Classical applications
+* Natural Language Inference (NLI)
+  * *I like cake!* / *Cake is bad* => <s>same</s>|<s>neutral</s>|**opposite**
+
+* Text classification (+ clustering)
+  * *I'm so glad to be here!* => joy
+
+* Named Entity Recognition (NER)
+  * *I voted for Obama!* => (Obama, pos:3, class:PER)
+* and many others...
+
+---
+<!--_class: lead -->
+# Decoders
+---
+### Decoders - Motivation
+
+* Models that are designed to **generate text**
+* Next-word predictors:
+$$
+P(w_i\ | (w_j)_{j\neq i}) = P_{\theta}(w_i | w_1...w_{i-1})
+$$
+* **Problem**: How do we impede self-attention to consider future tokens?
+
+---
+### Decoders - Attention mask
+
+<br>
+<center><img width="1100px" src="../imgs/course3/attention_mask.svg"/></center>
+
+- Each attention input can only attend to previous positions
+
+---
+### Decoders - Attention mask
+
+<br>
+<center><img width="1100px" src="../imgs/course3/attention_mask.svg"/></center>
+
+- Each attention input can only attend to previous positions
