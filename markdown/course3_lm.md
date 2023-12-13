@@ -279,6 +279,31 @@ where $d_h$ is the hidden dimension of the model
 <center><img width="400px" src="../imgs/course3/final_proj.svg"/></center>
 
 ---
+### Modern flavors : Relative Positional Embeddings
+- Encode position at attention-level:
+$$
+(\Omega Q K^T)_{i, j} = \langle \omega_i(Q_i) , \omega_j(K_j) \rangle + \beta_{i, j}
+$$
+- Rotary Positional Embeddings (RoPE, Su et al. 2023)
+  - $\omega_i$ is a rotation of angle $i\theta$; no $\beta$
+- Linear Biases (ALiBi, Press et al. 2022)
+  - $\beta_{i, j} = m \cdot(i - j)$ with $m \in \mathbb{R}$
+
+
+---
+### Modern flavors : RMSNorm
+- Replaces LayerNorm
+- Re-scaling is all you need
+$$
+RMSNorm_g(a_i) = \frac{a_i}{\sqrt{\frac{1}{N}\sum_{j=1}^N a_j^2}} g_i
+$$
+
+---
+### Modern flavors : Grouped-Query Attention
+
+<center><img width="1100px" src="../imgs/course3/gqa.png"/></center>
+
+---
 <!--_class: lead -->
 # Encoder Models
 
@@ -377,9 +402,155 @@ $$
 - Each attention input can only attend to previous positions
 
 ---
-### Decoders - Attention mask
+### Decoders - Causal LM pre-training
 
-<br>
-<center><img width="1100px" src="../imgs/course3/attention_mask.svg"/></center>
+- Teacher-forcing
+<center><img width="800px" src="../imgs/course3/causal_lm.svg"/></center>
 
-- Each attention input can only attend to previous positions
+---
+### Decoders - Causal LM inference (greedy)
+
+<center><img width="500px" src="../imgs/course3/causal_lm_inference_1.svg"/></center>
+
+---
+### Decoders - Causal LM inference (greedy)
+
+<center><img width="500px" src="../imgs/course3/causal_lm_inference_2.svg"/></center>
+
+---
+### Decoders - Refining inference
+
+- What we have : a good model for $P_{\theta}(w_i | w_1...w_{i-1})$
+
+- What we want at inference: 
+$$
+W^* = \argmax_{n, w_i...w_n}P_{\theta}(w_i...w_n | w_1...w_{i-1})
+$$
+
+- For a given completion length $n$, there are $|V|^n$ possibilities
+  - e.g.: 19 new tokens with a vocab of 30000 tokens > #atoms in $\Omega$
+- We need approximations
+
+---
+### Decoders - Greedy inference
+
+- Keep best word at each step and start again: 
+$$
+W^* = \argmax_{n, w_{i+1}...w_n}P_{\theta}(w_{i+1}...w_n | w_1...w_{i-1}w_i^*)
+$$
+where $w_i^* = \argmax_{w_i} P_{\theta}(w_i | w_1...w_{i-1})$
+
+---
+### Decoders - Beam search
+
+- Keep best $k$ chains of tokens at each step:
+  - Take $k$ best $w_i$ and compute $P_\theta(w_{i+1} | ...w_i)$ for each
+  - Take $k$ best $w_{i+1}$ in each sub-case (now we have $k \times k$ $(w_i, w_{i+1})$ pairs to consider)
+  - Consider only the $k$ more likely $(w_i, w_{i+1})$ pairs
+  - Compute $P_\theta(w_{i+2} | ...w_iw_{i+1})$ for the $k$ candidates
+  - and so on...
+
+---
+### Decoders - Top-k sampling
+
+- Randomly sample among top-$k$ tokens based on $P_{\theta}$
+
+<center><img width="500px" src="../imgs/course3/top_k.png"/></center>
+
+---
+### Decoders - Top-p (=Nucleus) sampling
+
+- Randomly sample based on $P_{\theta}$ up to $p$%
+
+<center><img width="500px" src="../imgs/course3/top_p.png"/></center>
+
+---
+### Decoders - Generation Temperature
+
+- Alter the softmax function:
+$$
+softmax_\tau(x) = \frac{e^{\frac{x_i}{\tau}}}{\sum_{j}e^{\frac{x_j}{\tau}}}
+$$
+
+<center><img width="800px" src="../imgs/course3/temperature.png"/></center>
+
+---
+### Decoders - Inference speed
+* For greedy decoding without prefix:
+  * $n$ passes with sequences of length $n$
+  * Each pass is $O(n^2)$
+  * Complexity: $O(n^3)$
+* Other decoding are <ins>more costly</ins>
+* Ways to go faster?
+---
+### Decoders - Query-Key caching
+
+<center><img width="700px" src="../imgs/course3/qk_cache.png"/></center>
+
+
+---
+### Decoders - Speculative decoding
+
+* Generate $\gamma$ tokens using $P_{\phi}$ where $|\phi| \ll |\theta|$ (smaller model)
+* Forward $w_i...w_{i+\gamma}$ in teacher-forcing mode and predict $w_{i+\gamma+1}$ with the bigger model
+* Compare $P_\theta$ and $P_\phi$ and only keep tokens where they <mark> don't differ too much </mark>
+
+---
+<!--_class: lead -->
+# Encoder-Decoder models
+
+---
+### T5 pre-training
+
+<center><img width="750px" src="../imgs/course3/T5_lm.svg"/></center>
+
+---
+### All models can do everything
+
+* Encoders are mostly used to get contextual embeddings
+  * They can also generate : $T_{enc}$("I love [MASK]")
+* Decoders are mostly used for language generation
+  * They can also give contextual embeddings : $T_{dec}$("I love music!")
+  * Or solve any task using prompts:
+    * "What is the emotion in this tweet? Tweet: '...' Answer:"
+* Encoders-decoders are used for language in-filling
+
+---
+### Evaluating models
+
+- A useful evaluation metric: ***Perplexity***
+- Defined as:
+$$
+ppl(T_{\theta}; w_1...w_n) = \sqrt[n]{\frac{1}{P_{\theta}(w_1...w_n)}}
+$$
+
+- Other metrics: accuracy, f1-score, ...
+
+---
+### Zero-shot evaluation
+
+* Never-seen problems/data
+* Example: *"What is the capital of Italy? Answer:"*
+  * Open-ended: Let the model continue the sentence and check exact match
+  * Ranking: Get next-word likelihood for *"Rome"*, *"Paris"*, *"London"*, and check if *"Rome"* is best
+  * Perplexity: Compute perplexity of *"Rome"* and compare with other models
+
+---
+### Few-shot evaluation / In-context learning
+
+* Never-seen problems/data
+* Example: *"Paris is the capital of France. London is the capital of the UK. Rome is the capital of"*
+* Chain-of-Thought (CoT) examples:
+  * Normal: *"(2+3)x5=25. What's (3+4)x2?"*
+  * CoT: *"To solve (2+3)x5, we first compute (2+3) = 5 and then multiply (2+3)x5=5x5=25. What's (3+4)x2?"*
+
+---
+### Open-sourced evaluation
+
+- Generative models are evaluated on benchmarks
+- Example (LLM Leaderboard from HuggingFace):
+<center><img width="1200px" src="../imgs/course3/llm_leaderboard.png"/></center>
+
+---
+<!--_class: lead -->
+# Lab session
