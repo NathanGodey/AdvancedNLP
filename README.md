@@ -32,10 +32,15 @@ It will consist of three steps:
 
 ### Fast inference
 - Efficient Streaming Language Models with Attention Sinks (https://arxiv.org/abs/2309.17453)
+- Lookahead decoding (https://lmsys.org/blog/2023-11-21-lookahead-decoding/)
+- Efficient Memory Management for Large Language Model Serving with PagedAttention (https://arxiv.org/pdf/2309.06180.pdf)
 
 ### LLM detection
 - Detecting Pretraining Data from Large Language Models (https://arxiv.org/abs/2310.16789)
 - Proving Test Set Contamination in Black Box Language Models (https://arxiv.org/abs/2310.17623)
+
+### SSMs (off-program)
+- Mamba: Linear-Time Sequence Modeling with Selective State Spaces (https://arxiv.org/abs/2312.00752)
 
 ### Alignment & Safety
 - Null It Out: Guarding Protected Attributes by Iterative Nullspace Projection (https://aclanthology.org/2020.acl-main.647/)
