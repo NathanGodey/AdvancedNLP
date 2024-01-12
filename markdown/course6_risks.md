@@ -65,7 +65,7 @@ Which **risks**? Misinformation, <u>biased</u> information, and <u>privacy</u> C
 
 ### Aim
 
-Mitigating a language models' risks via straightforward alignement.
+Mitigating language models' risks via straightforward alignement.
 
 ---
 
@@ -85,13 +85,6 @@ Label=+1|Label=-1
 Riveting film of the highest calibre!|Thank God I didn't go to the cinema.
 Definitely worth tha watch!|Boring as hell.
 A true story told perfectly!|I wanted to give up in the first hour...
-
----
-
-
-### "Avoiding" Learning Spurious Features
-
-![width:700px](https://drive.google.com/uc?export=view&id=1dyf7qJkInd4jmTMVuREtvj2swcfwqgZD)
 
 ---
 
