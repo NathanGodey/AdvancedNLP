@@ -5,7 +5,7 @@
 2. Tokenization ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course2_tokenization.pdf) / [lab session](https://colab.research.google.com/drive/1xEKz_1LcnkfcEenukIGCrk-Nf_5Hb19s?usp=sharing))
 3. Language Modeling ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course3_lm.pdf) / [lab session](https://colab.research.google.com/drive/1QmVOWC1oB206PmOBn8j0EF54laSh3BBd?usp=sharing))
 4. NLP without 2048 GPUs ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course4_efficiency.pdf) / [lab session](https://colab.research.google.com/drive/12OZwC5t8nUrh6JUNkG76XDMTDk19jP2m?usp=sharing))
-5. Handling the Risks of Language Models ([slides] / [lab session])
+5. Handling the Risks of Language Models ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course5_risks.pdf) / [lab session](https://drive.google.com/file/d/1m46UbyhAejGt6KKMoitxtC5rXD8dhrZr/view?usp=sharing))
 6. Advanced NLP tasks ([slides] / [lab session])
 7. Domain-specific NLP ([slides] / [lab session])
 8. Multilingual NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/Course%205%20-%20Multilingual%20NLP.pdf) / [lab session](https://colab.research.google.com/drive/11TX-q-hAdFiSeMVqFp1VCXhi_Ifoj8Rp?usp=sharing))
@@ -46,3 +46,4 @@ It will consist of three steps:
 - Null It Out: Guarding Protected Attributes by Iterative Nullspace Projection (https://aclanthology.org/2020.acl-main.647/)
 - Direct Preference Optimization: Your Language Model is Secretly a Reward Model (https://arxiv.org/abs/2305.18290)
 - Text Embeddings Reveal (Almost) As Much As Text (https://arxiv.org/abs/2310.06816)
+
