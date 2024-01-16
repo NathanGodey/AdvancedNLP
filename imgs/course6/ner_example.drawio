@@ -1,0 +1,13 @@
+<mxfile host="app.diagrams.net" modified="2024-01-16T13:15:00.184Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="3onL31sn650m3F5hTppQ" version="22.1.17" type="device">
+  <diagram name="Page-1" id="FViKRM0C93E-_3H-Q_LN">
+    <mxGraphModel dx="1185" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="WxO2ShPwpzDEVos3qqN--2" value="&lt;h1&gt;Gold Dataset&lt;/h1&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(103, 171, 159);&quot;&gt;Suxamethonium&lt;/span&gt; infusion rate and observed &lt;span style=&quot;background-color: rgb(255, 181, 112);&quot;&gt;fasciculations&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(103, 171, 159);&quot;&gt;Suxamethonium chloride&lt;/span&gt; (&lt;span style=&quot;background-color: rgb(103, 171, 159);&quot;&gt;Sch&lt;/span&gt;) was administred i.v.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Computer Modern;fontSource=https%3A%2F%2Fcheckmyworking.com%2Fcm-web-fonts%2FComputer%2520Modern%2520Serif.zip;" vertex="1" parent="1">
+          <mxGeometry x="265" y="80" width="320" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
