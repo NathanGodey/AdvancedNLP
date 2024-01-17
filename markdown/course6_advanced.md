@@ -76,11 +76,10 @@ There several levels of granularity.: using [the tag set for english](https://ww
 ### Conditional Random Field (CRF)
 
 Knowing that language models are good at generating vector spaces to better represent words:
-for each token in a sentence we want to compute a probability $p$ to belong to a class $n$.
+for each token in a sentence at position $l$ we want to compute a probability $p$ to belong to a class $n$.
 
 $$p: f(\textbf{x}, \theta)_{l} \mapsto ?$$
 with $p \in [0, 1]$
-Where $f(\textbf{x}, \theta)_{l}$ are the language model's parameters for the $l_{1 \leq L}$-th token.
 
 ---
 
@@ -164,7 +163,37 @@ How do we proceed?
 
 ### Conditional Random Field (CRF)
 
-What do we learn?
+Negative log-likelihood:
+
+$$\begin{flalign}
+\mathcal{L} &= -log(P(\textbf{y}|\textbf{x}))\\
+
+&= -log(\frac{exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n)}_{l}) + T(y^{(n)}_{l}, y_{l-1})}\textbf{)}]}{Z(\textbf{x})})\\
+
+&= -[log(exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n)}_{l}) + T(y^{(n)}_{l}, y_{l-1})}\textbf{)}]) - log(Z(\textbf{x}))]\\
+
+&= log(Z(\textbf{x})) - {\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n)}_{l}) + T(y^{(n)}_{l}, y_{l-1})}\textbf{)} 
+\end{flalign}$$
+
+---
+
+
+### Conditional Random Field (CRF)
+
+There is an effective way to compute $log(Z(\textbf{x}))$ with a complexity of $\mathcal{O}(L)$ using [the Log-Sum-Exp trick](https://gregorygundersen.com/blog/2020/02/09/log-sum-exp/).
+
+$$\begin{flalign}
+\sum_{n'=1}^{N}exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n')}_{l}) + T(y^{(n')}_{l}, y_{l-1})}\textbf{)}]
+\end{flalign}$$
+
+---
+
+
+### Weakly Supervised NER
+
+What if we don't have annotated data?
+
+1. Open-domain -> use WIkipedia or any anthology-based database.
 
 ---
 
