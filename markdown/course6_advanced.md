@@ -20,10 +20,9 @@ marp: true
 1. Named Entity Recognition (NER)
     a. Part-of-Speech Tagging (POS)
     b. Conditional Random Field (CRF)
-    c. Weakly Supervised NER
 2. Sentiment Analysis
-3. Natural Language Inference (NLI)
-4. QuestionAnswering (QA)
+3. QuestionAnswering (QA)
+4. Natural Language Inference (NLI)
     a. Going further: LM as knowledge graphs
 5. Exploit LLMs capacities: Chain-of-thoughts & In context learning
 
@@ -75,8 +74,14 @@ There several levels of granularity.: using [the tag set for english](https://ww
 
 ### Conditional Random Field (CRF)
 
-Knowing that language models are good at generating vector spaces to better represent words:
-for each token in a sentence at position $l$ we want to compute a probability $p$ to belong to a class $n$.
+![width:500px](../imgs/course6/token_classification_model.png)
+
+---
+
+
+### Conditional Random Field (CRF)
+
+For each token in a sentence at position $l$ we want to compute a probability $p$ to belong to a class $n$.
 
 $$p: f(\textbf{x}, \theta)_{l} \mapsto ?$$
 with $p \in [0, 1]$
@@ -183,17 +188,142 @@ $$\begin{flalign}
 There is an effective way to compute $log(Z(\textbf{x}))$ with a complexity of $\mathcal{O}(L)$ using [the Log-Sum-Exp trick](https://gregorygundersen.com/blog/2020/02/09/log-sum-exp/).
 
 $$\begin{flalign}
-\sum_{n'=1}^{N}exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n')}_{l}) + T(y^{(n')}_{l}, y_{l-1})}\textbf{)}]
+log(Z(\textbf{x})) &= log(\sum_{n'=1}^{N}exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n')}_{l}) + T(y^{(n')}_{l}, y_{l-1})}\textbf{)}])\\
+
+&= c + log(\sum_{n'=1}^{N}exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n')}_{l}) + T(y^{(n')}_{l}, y_{l-1})}\textbf{)} - c])
 \end{flalign}$$
 
 ---
 
 
-### Weakly Supervised NER
+### Conditional Random Field (CRF)
 
-What if we don't have annotated data?
+If we fix $c = max\{U(\textbf{x}, y^{(1)}_{l}) + T(y^{(1)}_{l}, y_{l-1}), ..., U(\textbf{x}, y^{(N)}_{l}) + T(y^{(N)}_{l}, y_{l-1})\}$ we ensure that the largest positive exponentiated term is $exp(0)=1$.
 
-1. Open-domain -> use WIkipedia or any anthology-based database.
+---
+
+
+
+<!--_class: lead -->
+## Sentiment Analysis
+
+---
+
+
+### Sentiment Analysis
+
+**Sentiment analysis** is a sentence classification task aiming at **automatically mapping data to their sentiment**.
+
+It can be **binary** classification (e.g., positive or negative) or **multiclass** (e.g., enthusiasm, anger, etc)
+
+---
+
+
+### Sentiment Analysis
+
+![width:650px](https://media.geeksforgeeks.org/wp-content/uploads/20230802120409/Single-Sentence-Classification-Task.png)
+
+---
+
+
+### Sentiment Analysis
+
+The loss can be the likes of cross-entropy (CE), binary cross-entropy (BCE) or KL-Divergence (KL).
+
+$$\mathcal{L}_{CE} = - \frac{1}{N} \sum_{n'=1}^{N}y^{(n)}.log(f(\textbf{x}, \theta)^{(n)})$$
+
+$$\mathcal{L}_{BCE} = - y^{(n)}.log(f(\textbf{x}, \theta)^{(n)}) + (1 - y^{(n)}).(1 - f(\textbf{x}, \theta)^{(n)})$$
+
+$$\mathcal{L}_{KL} = - \frac{1}{N} \sum_{n'=1}^{N}y^{(n)}.log(\frac{y^{(n)}}{f(\textbf{x}, \theta)^{(n)}})$$
+
+---
+
+
+<!--_class: lead -->
+## Question Answering (QA)
+
+---
+
+
+### Question Answering (QA)
+
+**QA** is the task of **retrieving a span of text from a context** that is best suited to answer a question.
+
+This task is extractive -> **information retrieval**
+
+---
+
+
+### Question Answering (QA)
+
+![width:1000px](https://miro.medium.com/v2/resize:fit:1093/1*UgytWW_huSrfWtGUV5vmNQ.png)
+
+---
+
+
+### Question Answering (QA)
+
+![width:1150px](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter7/qa_labels.svg)
+
+---
+
+### Question Answering (QA)
+
+The loss is the cross entropy over the output of the starting token and the ending one:
+
+$$\mathcal{L}_{CE_{QA}} = \mathcal{L}_{CE_{start}} + \mathcal{L}_{CE_{end}}$$
+
+---
+
+
+
+<!--_class: lead -->
+## Natural Language Inference (NLI)
+
+---
+
+
+### Natural Language Inference (NLI)
+
+**NLI** is the task of **determining whether a "hypothesis" is true (entailment), false (contradiction), or undetermined (neutral)** given a "premise". [1]
+
+---
+
+
+### Natural Language Inference (NLI)
+
+Premise|Label|Hypothesis
+-------|-----|----------
+A man inspects the uniform of a figure in some East Asian country.|contradiction|The man is sleeping.
+An older and younger man smiling.|neutral|Two men are smiling and laughing at the cats playing on the floor.
+A soccer game with multiple males playing.|entailment|Some men are playing a sport.
+
+---
+
+
+### Natural Language Inference (NLI)
+
+![width:550px](https://nlp.gluon.ai/_images/bert-sentence-pair.png)
+
+---
+
+
+### Natural Language Inference (NLI)
+
+The loss is simply the cross entropy or the divergence over the output of the `CLS` token and the true label.
+
+$$\mathcal{L}_{NLI} = \mathcal{L}_{CE_{CLS}}$$
+
+We are trying to compress the information about both sentence in one `CLS` token via attention and decide about their relationship.
+
+Is it possible to help the model infering more information with les text data?
+
+---
+
+
+### Going Further: LM as Knowledge Graphs
+
+Dragon
 
 ---
 
@@ -208,7 +338,7 @@ What if we don't have annotated data?
 
 ### References
 
-[1] He, H. (2023, July 9). Robust Natural Language Understanding.
+[1] https://paperswithcode.com/task/natural-language-inference
 
 [2] Singla, S., & Feizi, S. (2021). Causal imagenet: How to discover spurious features in deep learning. arXiv preprint arXiv:2110.04301, 23.
 
