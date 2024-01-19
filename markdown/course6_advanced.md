@@ -2,17 +2,17 @@
 theme: gaia
 _class: lead
 paginate: true
-title: "Course 6: Advanced NLP tasks"
+title: "Course 6: Advanced NLP Tasks"
 backgroundColor: #fff
 marp: true
 ---
 
 
-# **Advanced NLP tasks**
+# **Advanced NLP Tasks**
 
 ---
 
-<!--footer: "Course 6: Advanced NLP tasks" -->
+<!--footer: "Course 6: Advanced NLP Tasks" -->
 
 
 ### Contents
@@ -323,10 +323,76 @@ Is it possible to help the model infering more information with les text data?
 
 ### Going Further: LM as Knowledge Graphs
 
-Dragon
+Yasunaga, M., Bosselut, A., Ren, H., Zhang, X., Manning, C. D., Liang, P. S., & Leskovec, J. (2022). [Deep bidirectional language-knowledge graph pretraining](https://arxiv.org/abs/2210.09338). Advances in Neural Information Processing Systems, 35, 37309-37323.
 
 ---
 
+
+### Going Further: LM as Knowledge Graphs
+
+![height:500px](../imgs/course6/dragon_sampling.PNG)
+
+---
+
+
+### Going Further: LM as Knowledge Graphs
+
+![height:500px](../imgs/course6/dragon_training.PNG)
+
+---
+
+
+### Going Further: LM as Knowledge Graphs
+
+This architecture ***involves a KG ready to use beforeheaad and pre-training from scratch***. How can we better **perform NLP task without having to retrain or fine-tune** a model?
+
+---
+
+
+
+<!--_class: lead -->
+## Exploit LLMs capacities: Chain-of-thoughts & In context Learning
+
+---
+
+
+### Exploit LLMs capacities
+
+ICL enables LLMs to learn new tasks using natural language prompts without explicit retraining or fine-tuning.
+
+The efficacy of ICL is closely tied to the model's scale, training data quality, and domain specificity.
+
+---
+
+
+### Exploit LLMs capacities
+
+![height:500px](https://thegradient.pub/content/images/size/w800/2023/04/icl-copy2.png)
+
+---
+
+
+### Exploit LLMs capacities
+
+![height:500px](https://lh6.googleusercontent.com/In6MiddAKdLNEjwHeOzkIJlK3FmZank8f2ibBERPReIwTAKkDm4HglsizdjE8O23gmjyPaEFJSMsdRZLiVx5vNE6RLY2pyukmSEh9acYSwBCUNljXpcalKK4d0KUvcRNlEsNG7x4Exn7jDOEHDwbyE0)
+
+---
+
+
+### Exploit LLMs capacities
+
+![width:1100px](https://thegradient.pub/content/images/size/w1000/2023/04/Screen-Shot-2023-04-19-at-8.09.07-PM.png)
+
+![width:600px](https://lh6.googleusercontent.com/L_cA-kq0nkDAPO76ju9z8m_3KmZ8nyOIvXrOPoQ9ldAXCR0ACtFOanfCYUllb2g9OBa-2nG5BnsgjKuEPXSlbmgbRNqbS9p3vldqark5wAaTWnGsJofzNzK3GKUsww6byRCgA_AmHcItRgPLoFSk8N0)
+
+---
+
+
+### Exploit LLMs capacities
+
+![height:500px](https://www.promptingguide.ai/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzero-cot.79793bee.png&w=1080&q=75)
+
+---
 
 
 
@@ -339,16 +405,3 @@ Dragon
 ### References
 
 [1] https://paperswithcode.com/task/natural-language-inference
-
-[2] Singla, S., & Feizi, S. (2021). Causal imagenet: How to discover spurious features in deep learning. arXiv preprint arXiv:2110.04301, 23.
-
-[3] Carmon, Y., Raghunathan, A., Schmidt, L., Duchi, J. C., & Liang, P. S. (2019). Unlabeled data improves adversarial robustness. Advances in neural information processing systems, 32.
-
----
-
-
-[4] [Pretrained Transformers Improve Out-of-Distribution Robustness](https://aclanthology.org/2020.acl-main.244) (Hendrycks et al., ACL 2020)
-
-[5] Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D., Dhariwal, P., ... & Amodei, D. (2020). Language models are few-shot learners. Advances in neural information processing systems, 33, 1877-1901.
-
-[6] Zhao, Z., Wallace, E., Feng, S., Klein, D., & Singh, S. (2021, July). Calibrate before use: Improving few-shot performance of language models. In International Conference on Machine Learning (pp. 12697-12706). PMLR.

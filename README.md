@@ -6,7 +6,7 @@
 3. Language Modeling ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course3_lm.pdf) / [lab session](https://colab.research.google.com/drive/1QmVOWC1oB206PmOBn8j0EF54laSh3BBd?usp=sharing))
 4. NLP without 2048 GPUs ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course4_efficiency.pdf) / [lab session](https://colab.research.google.com/drive/12OZwC5t8nUrh6JUNkG76XDMTDk19jP2m?usp=sharing))
 5. Handling the Risks of Language Models ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course5_risks.pdf) / [lab session](https://drive.google.com/file/d/1m46UbyhAejGt6KKMoitxtC5rXD8dhrZr/view?usp=sharing))
-6. Advanced NLP tasks ([slides] / [lab session])
+6. Advanced NLP tasks ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course6_advanced.pdf) / [lab session](https://colab.research.google.com/drive/1Owh2KH6dPkJIkz0Bsi5XbOnZN6uAhAF2?usp=sharing))
 7. Domain-specific NLP ([slides] / [lab session])
 8. Multilingual NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/Course%205%20-%20Multilingual%20NLP.pdf) / [lab session](https://colab.research.google.com/drive/11TX-q-hAdFiSeMVqFp1VCXhi_Ifoj8Rp?usp=sharing))
 9. Multimodal NLP ([slides](https://docs.google.com/presentation/d/1K2DgnPSOGXB1hQ4FZoUU-5ppJ4dn_sLC41Ecwmxi2Zk/edit?usp=sharing) / [lab session])
