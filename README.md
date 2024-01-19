@@ -12,6 +12,8 @@
 9. Multimodal NLP ([slides](https://docs.google.com/presentation/d/1K2DgnPSOGXB1hQ4FZoUU-5ppJ4dn_sLC41Ecwmxi2Zk/edit?usp=sharing) / [lab session])
 
 ## Evaluation
+⚠️ **There is no oral presentation/evaluation for this course.**
+
 The evaluation consists in a team project (3-5 people). There are two options:
 - **Demo** : Use a well-known approach to produce a MVP for an <ins>original</ins> use-case and present it in a demo.
   - *Example: An online platform that detects AI-generated text.*<br>
@@ -24,7 +26,7 @@ It will consist of three steps:
   - Type of project and vague description (can change afterwards)
 - **Project plan (30% of final grade, before 07/01/23)**: following [this template](https://docs.google.com/document/d/1rCWr6p5N0ip7fpNv9e5wjX7gez4oaFGioatYXRRKGR8/edit?usp=sharing), produce a project plan explaining first attempts (e.g. version alpha), how they failed/succeeded and what you want to do before the delivery.
 - **Project delivery (70% of final grade, before mid-February)**: deliver a `nb_team_members * 2` pages project report and a GitHub repo (more details coming soon)
- 
+
 ## Potential articles
 ### Tokenization
 - A Vocabulary-Free Multilingual Neural Tokenizer for End-to-End Task Learning (https://arxiv.org/abs/2204.10815)
