@@ -9,7 +9,7 @@
 6. Advanced NLP tasks ([slides] / [lab session])
 7. Domain-specific NLP ([slides] / [lab session])
 8. Multilingual NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/Course%205%20-%20Multilingual%20NLP.pdf) / [lab session](https://colab.research.google.com/drive/11TX-q-hAdFiSeMVqFp1VCXhi_Ifoj8Rp?usp=sharing))
-9. Multimodal NLP ([slides] / [lab session])
+9. Multimodal NLP ([slides](https://docs.google.com/presentation/d/1K2DgnPSOGXB1hQ4FZoUU-5ppJ4dn_sLC41Ecwmxi2Zk/edit?usp=sharing) / [lab session])
 
 ## Evaluation
 The evaluation consists in a team project (3-5 people). There are two options:
