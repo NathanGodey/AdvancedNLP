@@ -63,7 +63,7 @@ _Don't Stop Pretraining: Adapt Language Models to Domains and Tasks._ [1]
 
 ![height:300px](https://d3i71xaburhd42.cloudfront.net/e816f788767eec6a8ef0ea9eddd0e902435d4271/3-Figure2-1.png)
 
-<font size=”1”>**Figure 2**: Vocabulary overlap (%) between domains. PT denotes a sample from sources similar to ROBERTA’s pretraining corpus. Vocabularies for each domain are created by considering the top 10K most frequent words (excluding stopwords) in documents sampled from each domain.</font>
+<sub><sup>**Figure 2**: Vocabulary overlap (%) between domains. PT denotes a sample from sources similar to ROBERTA’s pretraining corpus. Vocabularies for each domain are created by considering the top 10K most frequent words (excluding stopwords) in documents sampled from each domain.</sup></sub>
 
 ---
 
