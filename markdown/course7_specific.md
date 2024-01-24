@@ -61,6 +61,15 @@ _Don't Stop Pretraining: Adapt Language Models to Domains and Tasks._ [1]
 
 ### Don’t Stop Pretraining
 
+![width:1100px](https://d3i71xaburhd42.cloudfront.net/e816f788767eec6a8ef0ea9eddd0e902435d4271/3-Table1-1.png)
+
+<sub><sup>**Table 1**: List of the domain-specific unlabeled datasets. In columns 5 and 6, we report ROBERTA’s masked LM loss on 50K randomly sampled held-out documents from each domain before $(\mathcal{L}_{ROB.})$ and after $(\mathcal{L}_{DAPT})$ $DAPT$ (lower implies a better fit on the sample). ‡ indicates that the masked LM loss is estimated on data sampled from sources similar to ROBERTA’s pretraining corpus.</sup></sub>
+
+---
+
+
+### Don’t Stop Pretraining
+
 ![height:300px](https://d3i71xaburhd42.cloudfront.net/e816f788767eec6a8ef0ea9eddd0e902435d4271/3-Figure2-1.png)
 
 <sub><sup>**Figure 2**: Vocabulary overlap (%) between domains. PT denotes a sample from sources similar to ROBERTA’s pretraining corpus. Vocabularies for each domain are created by considering the top 10K most frequent words (excluding stopwords) in documents sampled from each domain.</sup></sub>
@@ -68,142 +77,178 @@ _Don't Stop Pretraining: Adapt Language Models to Domains and Tasks._ [1]
 ---
 
 
-### Part-of-Speech Tagging (POS)
+### Don’t Stop Pretraining
 
-There several levels of granularity.: using [the tag set for english](https://www.ibm.com/docs/en/wca/3.5.0?topic=analytics-part-speech-tag-sets)
+![width:800px](https://d3i71xaburhd42.cloudfront.net/e816f788767eec6a8ef0ea9eddd0e902435d4271/6-Table5-1.png)
 
-("He", "likes", "to", "drink", "tea"), $\rightarrow$ ("PRP", "VBP", "TO", "VB", "NN").
-
----
-
-
-### Conditional Random Field (CRF)
-
-![width:500px](../imgs/course6/token_classification_model.png)
+<sub><sup>**Table 5**: Results on different phases of adaptive pretraining compared to the baseline RoBERTa (col. 1). Our approaches are $DAPT$ (col. 2, §3), $TAPT$ (col. 3, §4), and a combination of both (col. 4).</sup></sub>
 
 ---
 
 
-### Conditional Random Field (CRF)
+### Don’t Stop Pretraining
 
-For each token in a sentence at position $l$ we want to compute a probability $p$ to belong to a class $n$.
-
-$$p: f(\textbf{x}, \theta)_{l} \mapsto ?$$
-with $p \in [0, 1]$
+"We show that **pretraining the model towards a specific task or small corpus can provide significant benefits**. Our findings suggest it may be valuable to complement work on ever-larger LMs with parallel efforts to **identify and use domain and task relevant corpora to specialize models**."
 
 ---
 
 
-### Conditional Random Field (CRF)
+### BioBERT
 
-Using the softmax function?
-
-$$p: f(\textbf{x}, \theta)_{l}^ \mapsto \frac{e^{f(\textbf{x}, \theta)_{l}^{(n)}}}{\sum_{n'=1}^{N}e^{f(\textbf{x}, \theta)^{(n')}_{l}}}$$
-
-The probability given by the softmax function will not encode non-local dependencies!
+"[..] the word distributions of general and biomedical corpora are quite different, which can often be a problem for biomedical text mining models." [2]
 
 ---
 
 
-### Conditional Random Field (CRF)
+### BioBERT
 
-We need to take sequential decisions: what if we add transition scores into our softmax?
+![width:900px](https://d3i71xaburhd42.cloudfront.net/1e43c7084bdcb6b3102afaf301cce10faead2702/3-Table1-1.png)
 
-$$p: f(\textbf{x}, \theta)_{l} \mapsto \frac{e^{f(\textbf{x}, \theta)_{l}^{(n)} + t(y^{(n)}_{l}, y_{l-1})}}{\sum_{n'=1}^{N}e^{f(\textbf{x}, \theta)_{l}^{(n')} + t(y^{(n')}_{l}, y_{l-1})}}$$
-
-But this is the probability for one token to belong to a class, we want to compute the probability of a whole sequence of label at once...
+<sub><sup>**Table 1**. List of text corpora used for BioBERT</sup></sub>
 
 ---
 
 
-### Conditional Random Field (CRF)
+### BioBERT
 
-$$\begin{flalign}
-P(\textbf{y}|\textbf{x}) &= \prod_{l=2}^{L}p(\textbf{y}|f(\textbf{x}, \theta)_{l})\\
-\\
-&= \prod_{l=2}^{L}\frac{e^{f(\textbf{x}, \theta)_{l}^{(n)} + t(y^{(n)}_{l}, y_{l-1})}}{\sum_{n'=1}^{N}e^{f(\textbf{x}, \theta)_{l}^{(n')} + t(y^{(n')}_{l}, y_{l-1})}}\\
-\end{flalign}$$
+"We showed that **pre-training BERT on biomedical corpora is crucial in applying it to the biomedical domain**. Requiring minimal task-specific architectural modification, **BioBERT outperforms previous models on biomedical text mining tasks** such as NER, RE and QA."
 
 ---
 
 
-$$\begin{flalign}
-P(\textbf{y}|\textbf{x}) &= \frac{exp[{\sum_{l=2}^{L}\textbf{(}f(\textbf{x}, \theta)_{l}^{(n)} + t(y^{(n)}_{l}, y_{l-1})}\textbf{)}]}{\sum_{n'=1}^{N}exp[{\sum_{l=2}^{L}\textbf{(}f(\textbf{x}, \theta)_{l}^{(n')} + t(y^{(n')}_{l}, y_{l-1})}\textbf{)}]}\\
-\\
-&= \frac{exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n)}_{l}) + T(y^{(n)}_{l}, y_{l-1})}\textbf{)}]}{\sum_{n'=1}^{N}exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n')}_{l}) + T(y^{(n')}_{l}, y_{l-1})}\textbf{)}]}\\
-\\
-&= \frac{exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n)}_{l}) + T(y^{(n)}_{l}, y_{l-1})}\textbf{)}]}{Z(\textbf{x})}
+### SciBERT
 
-\end{flalign}$$
+"[...] while both BERT and ELMo have released pretrained models, they are still trained on general domain corpora such as news articles and Wikipedia." [3]
 
 ---
 
 
-### Conditional Random Field (CRF)
+### SciBERT
 
-$Z(\textbf{x})$ is commonly referred as the partition function. However, its not trivial to compute: we'll end up with a complexity of $\mathcal{O}(N^{L})$.
+![width:800px](https://d3i71xaburhd42.cloudfront.net/156d217b0a911af97fa1b5a71dc909ccef7a8028/4-Table1-1.png)
 
-Where $N$ is the number of possible labels and $L$ the sequence length.
-
-How do we proceed?
+<sub><sup>**Table 1**: Test performances of all BERT variants on all tasks and datasets. [...]</sup></sub>
 
 ---
 
 
-### Conditional Random Field (CRF)
+### SciBERT
 
-![height:450px](https://raw.githubusercontent.com/PythonWorkshop/intro-to-nlp-with-pytorch/master/images/viterbi.png)
+![width:900px](https://d3i71xaburhd42.cloudfront.net/156d217b0a911af97fa1b5a71dc909ccef7a8028/4-Table2-1.png)
 
----
-
-
-### Conditional Random Field (CRF)
-
-![height:450px](https://raw.githubusercontent.com/PythonWorkshop/intro-to-nlp-with-pytorch/master/images/crf_transition_matrix.png)
+<sub><sup>**Table 2**: Comparing SciBERT with the reported BioBERT results on biomedical datasets. </sup></sub>
 
 ---
 
 
-### Conditional Random Field (CRF)
+### SciBERT
 
-![height:450px](https://raw.githubusercontent.com/PythonWorkshop/intro-to-nlp-with-pytorch/master/images/linear_crf_example.png)
-
----
-
-
-### Conditional Random Field (CRF)
-
-Negative log-likelihood:
-
-$$\begin{flalign}
-\mathcal{L} &= -log(P(\textbf{y}|\textbf{x}))\\
-
-&= -log(\frac{exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n)}_{l}) + T(y^{(n)}_{l}, y_{l-1})}\textbf{)}]}{Z(\textbf{x})})\\
-
-&= -[log(exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n)}_{l}) + T(y^{(n)}_{l}, y_{l-1})}\textbf{)}]) - log(Z(\textbf{x}))]\\
-
-&= log(Z(\textbf{x})) - {\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n)}_{l}) + T(y^{(n)}_{l}, y_{l-1})}\textbf{)} 
-\end{flalign}$$
+NB: SciBERT was trained on curated textual data ; not trained on code or script for example --at leat not trained directly and purposefully on this kind of data
 
 ---
 
 
-### Conditional Random Field (CRF)
+### Galactica
 
-There is an effective way to compute $log(Z(\textbf{x}))$ with a complexity of $\mathcal{O}(L)$ using [the Log-Sum-Exp trick](https://gregorygundersen.com/blog/2020/02/09/log-sum-exp/).
+"Computing has indeed revolutionized how research is conducted, but information overload remains an overwhelming problem [...]. In this paper, we argue for a better way through large language models. Unlike search engines, language models can potentially store, combine and reason about scientific knowledge." [4]
 
-$$\begin{flalign}
-log(Z(\textbf{x})) &= log(\sum_{n'=1}^{N}exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n')}_{l}) + T(y^{(n')}_{l}, y_{l-1})}\textbf{)}])\\
-
-&= c + log(\sum_{n'=1}^{N}exp[{\sum_{l=2}^{L}\textbf{(}U(\textbf{x}, y^{(n')}_{l}) + T(y^{(n')}_{l}, y_{l-1})}\textbf{)} - c])
-\end{flalign}$$
+* Galactica was trained on a rather small highly curated dataset.
+* All the data was standardized as markdown text.
 
 ---
 
 
-### Conditional Random Field (CRF)
+### Galactica
 
-If we fix $c = max\{U(\textbf{x}, y^{(1)}_{l}) + T(y^{(1)}_{l}, y_{l-1}), ..., U(\textbf{x}, y^{(N)}_{l}) + T(y^{(N)}_{l}, y_{l-1})\}$ we ensure that the largest positive exponentiated term is $exp(0)=1$.
+![width:750px](https://d3i71xaburhd42.cloudfront.net/7d645a3fd276918374fd9483fd675c28e46506d1/4-Table1-1.png)
+
+<sub><sup>**Table 1**: Tokenizing Nature. Galactica trains on text sequences that represent scientific phenomena.  </sup></sub>
+
+---
+
+
+### Galactica
+
+1. **Citations:** we wrap citations with special reference tokens [START_REF] and [END_REF].
+2. **Step-by-Step Reasoning:** we wrap step-by-step reasoning with a working memory token <work>, mimicking an internal working memory context.
+3. **Mathematics:** for mathematical content, with or without LaTeX, we split ASCII operations into individual characters. Parentheses are treated like digits. The rest of the operations allow for unsplit repetitions. Operation characters are !"#$%&’*+,-./:;<=>?\^_‘| and parentheses are ()[]{}.
+
+---
+
+
+4. **Numbers:** we split digits into individual tokens. For example 737612.62 -> 7,3,7,6,1,2,.,6,2.
+5. **SMILES formula:** we wrap sequences with [START_SMILES] and [END_SMILES] and apply characterbased tokenization. Similarly we use [START_I_SMILES] and [END_I_SMILES] where isomeric SMILES is denoted. For example, C(C(=O)O)N → C,(,C,(,=,O,),O,),N.
+6. **Amino acid sequences:** we wrap sequences with [START_AMINO] and [END_AMINO] and apply character-based tokenization, treating each amino acid character as a single token. For example, MIRLGAPQTL -> M,I,R,L,G,A,P,Q,T,L.
+
+---
+
+
+7. **DNA sequences:** we also apply a character-based tokenization, treating each nucleotide base as a token, where the start tokens are [START_DNA] and [END_DNA]. For example, CGGTACCCTC -> C, G, G, T, A, C, C, C, T, C.
+
+---
+
+### Galactica
+
+![width:750px](https://d3i71xaburhd42.cloudfront.net/7d645a3fd276918374fd9483fd675c28e46506d1/9-Figure5-1.png)
+
+<sub><sup>**Figure 5:** Prompt Pre-training. Pre-training weighs all tokens equally as part of the self-supervised loss. This leads to a weak relative signal for tasks of interest, meaning model scale has to be large to work. Instruction tuning boosts performance post hoc, and can generalize to unseen tasks of interest, but it risks performance in tasks that are distant from instruction set tasks. Prompt pre-training has a weaker task of interest bias than instruction tuning but less risk of degrading overall task generality.</sup></sub>
+
+---
+
+
+### Galactica
+
+* **GeLU Activation** - GeLU activations for all model sizes.
+* **Context Window** - a 2048 length context window.
+* **No Biases** - following PaLM, we do not use biases in any of the dense kernels or layer norms.
+* **Learned Positional Embeddings** - learned positional embeddings for the model.
+* **Vocabulary** - vocabulary of 50k tokens using BPE. The vocabulary was generated from a randomly selected 2% subset of the training data.
+
+---
+
+
+### Galactica
+
+_Gaussian Error Linear Units function (GeLu)_
+
+$$GELU(x)= x ∗ \Phi(x)$$
+
+Where $\Phi(x)$ is the Gaussian function.
+
+$$GELU(x) \approx x ∗ \frac{1}{2}(1 + Tanh(\frac{2}{\pi}∗(x+0.044715 ∗ x^{3})))$$
+
+---
+
+
+### Galactica
+
+![height:350px](https://pytorch.org/docs/stable/_images/GELU.png)
+
+* Allows small negative values when $x < 0$.
+* Avoids the dying ReLU problem.
+
+---
+
+
+### Galactica
+
+_Why no biases?_
+
+![height:400px](https://upload.wikimedia.org/wikipedia/commons/9/91/Full_GPT_architecture.png)
+
+---
+
+
+
+<!--_class: lead -->
+## Unsupervised Classification Models
+
+---
+
+
+### Out-of-the-box representations
+
+pass
 
 ---
 
@@ -410,3 +455,13 @@ The efficacy of ICL is closely tied to the model's scale, training data quality,
 ### References
 
 [1] Gururangan, Suchin, Ana Marasović, Swabha Swayamdipta, Kyle Lo, Iz Beltagy, Doug Downey, and Noah A. Smith. “[Don’t Stop Pretraining: Adapt Language Models to Domains and Tasks.](https://doi.org/10.18653/v1/2020.acl-main.740.)” In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, edited by Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, 8342–60. Online: Association for Computational Linguistics, 2020.
+
+---
+
+[2] Lee, Jinhyuk, Wonjin Yoon, Sungdong Kim, Donghyeon Kim, Sunkyu Kim, Chan Ho So, and Jaewoo Kang. “[BioBERT: A Pre-Trained Biomedical Language Representation Model for Biomedical Text Mining.](https://doi.org/10.1093/bioinformatics/btz682)” Bioinformatics 36, no. 4 (February 15, 2020): 1234–40.
+
+[3] Beltagy, Iz, Kyle Lo, and Arman Cohan. “[SciBERT: A Pretrained Language Model for Scientific Text.](https://doi.org/10.18653/v1/D19-1371)” In Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP), edited by Kentaro Inui, Jing Jiang, Vincent Ng, and Xiaojun Wan, 3615–20. Hong Kong, China: Association for Computational Linguistics, 2019.
+
+---
+
+[4] Taylor, Ross, Marcin Kardas, Guillem Cucurull, Thomas Scialom, Anthony Hartshorn, Elvis Saravia, Andrew Poulton, Viktor Kerkez, and Robert Stojnic. “[Galactica: A Large Language Model for Science.](https://doi.org/10.48550/arXiv.2211.09085)” arXiv, November 16, 2022.
