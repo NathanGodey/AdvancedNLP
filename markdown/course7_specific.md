@@ -21,9 +21,8 @@ marp: true
     a. _Don’t Stop Pre-training_
     b. Specialized Models (BioBERT, SciBERT, Galactica)
 2. Unsupervised Classification Models
-    a. Out-of-the-box representations: limitations
+    a. Document Representation
     b. SimCSE, E5, GTE...
-    c. Document Representation: DocBERT
 3. Learning Long-Range Dependencies
     a. Long-range attention models
     b. State-space models: S4
@@ -246,37 +245,116 @@ _Why no biases?_
 ---
 
 
-### Out-of-the-box representations
+### Document Representation
 
-pass
+![height:400px](https://d3i71xaburhd42.cloudfront.net/93d63ec754f29fa22572615320afe0521f7ec66d/3-Figure1-1.png)
+
+[6]
+
+---
+
+
+### Document Representation
+
+![height:400px](https://www.researchgate.net/profile/Jie-Pan-15/publication/369102585/figure/fig4/AS:11431281125588617@1678372766859/Composition-of-input-sequence-representations-for-text-classification-using-BERT-The.ppm)
+
+[5]
+
+---
+
+
+### Document Representation
+
+![height:400px](https://d3i71xaburhd42.cloudfront.net/93d63ec754f29fa22572615320afe0521f7ec66d/7-Table6-1.png)
+
+[6]
+
+---
+
+
+### Document Representation
+
+(1) The data is being compressed mutliple time -> challeging document can be hard to embed.
+(2) Slow to process, as we need to chunk the inputs to make multiple inferences.
+
+Can we do better?
+
+---
+
+
+### SimCSE
+
+Contrastive learning uses similar data point  and opposite ones in order for the model build close representations for the first ones and and more separated ones for the latter. [7]
+
+* Unsupervised SimCSE: standard dropout as data augmentation
+* Supervised SimCSE: use pairs in NLI datasets
+
+---
+
+
+### SimCSE
+
+$$\mathcal{L}_{uns} = -log \frac{ exp( \frac{ sim( \textbf{ h }_{ i }, \textbf{ h }_{ i }^{ + } )}{ \tau } ) } {\sum_{j=1}^{N}exp( \frac{ sim( \textbf{ h }_{ i }, \textbf{ h }_{ j }^{ + } )}{ \tau } ) } $$
+
+$$\mathcal{L}_{sup} = -log \frac{ exp( \frac{ sim( \textbf{ h }_{ i }, \textbf{ h }_{ i }^{ + } )}{ \tau } ) } {\sum_{j=1}^{N}exp( \frac{ sim( \textbf{ h }_{ i }, \textbf{ h }_{ j }^{ + } )}{ \tau } ) + exp( \frac{ sim( \textbf{ h }_{ i }, \textbf{ h }_{ j }^{ - } )}{ \tau } ) } $$
+
+[8]
+
+---
+
+
+### SimCSE
+
+![width:1100px](https://d3i71xaburhd42.cloudfront.net/c26759e6c701201af2f62f7ee4eb68742b5bf085/2-Figure1-1.png)
+
+---
+
+
+### SimCSE
+
+* The pretrained embeddings are being regularized to be more uniform.
+* Semantically close pairs are better aligned.
+
+Better performances, hence solving (1).
+
+See also [9] [10]
+
+---
+
+
+### SimCSE
+
+![height:500px](https://d3i71xaburhd42.cloudfront.net/84109e1235b725f4bb44a54bab8b493bd723fdd3/8-Table6-1.png)
 
 ---
 
 
 
 <!--_class: lead -->
-## Sentiment Analysis
+## Learning Long-Range Dependencies
 
 ---
 
 
-### Sentiment Analysis
+### Long-range attention models
 
-**Sentiment analysis** is a sentence classification task aiming at **automatically mapping data to their sentiment**.
+Sliding window attention: Longformer [11]
 
-It can be **binary** classification (e.g., positive or negative) or **multiclass** (e.g., enthusiasm, anger, etc)
-
----
-
-
-### Sentiment Analysis
-
-![width:650px](https://media.geeksforgeeks.org/wp-content/uploads/20230802120409/Single-Sentence-Classification-Task.png)
+![width:1100px](https://d3i71xaburhd42.cloudfront.net/925ad2897d1b5decbea320d07e99afa9110e09b2/3-Figure2-1.png)
 
 ---
 
 
-### Sentiment Analysis
+### Long-range attention models
+
+Sliding window attention: Mistral 7B [12]
+
+![width:900px](https://d3i71xaburhd42.cloudfront.net/db633c6b1c286c0386f0078d8a2e6224e03a6227/2-Figure1-1.png)
+
+---
+
+
+### State-space models: Mamba
 
 The loss can be the likes of cross-entropy (CE), binary cross-entropy (BCE) or KL-Divergence (KL).
 
@@ -285,162 +363,6 @@ $$\mathcal{L}_{CE} = - \frac{1}{N} \sum_{n'=1}^{N}y^{(n)}.log(f(\textbf{x}, \the
 $$\mathcal{L}_{BCE} = - y^{(n)}.log(f(\textbf{x}, \theta)^{(n)}) + (1 - y^{(n)}).(1 - f(\textbf{x}, \theta)^{(n)})$$
 
 $$\mathcal{L}_{KL} = - \frac{1}{N} \sum_{n'=1}^{N}y^{(n)}.log(\frac{y^{(n)}}{f(\textbf{x}, \theta)^{(n)}})$$
-
----
-
-
-<!--_class: lead -->
-## Question Answering (QA)
-
----
-
-
-### Question Answering (QA)
-
-**QA** is the task of **retrieving a span of text from a context** that is best suited to answer a question.
-
-This task is extractive -> **information retrieval**
-
----
-
-
-### Question Answering (QA)
-
-![width:1000px](https://miro.medium.com/v2/resize:fit:1093/1*UgytWW_huSrfWtGUV5vmNQ.png)
-
----
-
-
-### Question Answering (QA)
-
-![width:1150px](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter7/qa_labels.svg)
-
----
-
-### Question Answering (QA)
-
-The loss is the cross entropy over the output of the starting token and the ending one:
-
-$$\mathcal{L}_{CE_{QA}} = \mathcal{L}_{CE_{start}} + \mathcal{L}_{CE_{end}}$$
-
----
-
-
-
-<!--_class: lead -->
-## Natural Language Inference (NLI)
-
----
-
-
-### Natural Language Inference (NLI)
-
-**NLI** is the task of **determining whether a "hypothesis" is true (entailment), false (contradiction), or undetermined (neutral)** given a "premise". [1]
-
----
-
-
-### Natural Language Inference (NLI)
-
-Premise|Label|Hypothesis
--------|-----|----------
-A man inspects the uniform of a figure in some East Asian country.|contradiction|The man is sleeping.
-An older and younger man smiling.|neutral|Two men are smiling and laughing at the cats playing on the floor.
-A soccer game with multiple males playing.|entailment|Some men are playing a sport.
-
----
-
-
-### Natural Language Inference (NLI)
-
-![width:550px](https://nlp.gluon.ai/_images/bert-sentence-pair.png)
-
----
-
-
-### Natural Language Inference (NLI)
-
-The loss is simply the cross entropy or the divergence over the output of the `CLS` token and the true label.
-
-$$\mathcal{L}_{NLI} = \mathcal{L}_{CE_{CLS}}$$
-
-We are trying to compress the information about both sentence in one `CLS` token via attention and decide about their relationship.
-
-Is it possible to help the model infering more information with les text data?
-
----
-
-
-### Going Further: LM as Knowledge Graphs
-
-Yasunaga, M., Bosselut, A., Ren, H., Zhang, X., Manning, C. D., Liang, P. S., & Leskovec, J. (2022). [Deep bidirectional language-knowledge graph pretraining](https://arxiv.org/abs/2210.09338). Advances in Neural Information Processing Systems, 35, 37309-37323.
-
----
-
-
-### Going Further: LM as Knowledge Graphs
-
-![height:500px](../imgs/course6/dragon_sampling.PNG)
-
----
-
-
-### Going Further: LM as Knowledge Graphs
-
-![height:500px](../imgs/course6/dragon_training.PNG)
-
----
-
-
-### Going Further: LM as Knowledge Graphs
-
-This architecture ***involves a KG ready to use beforeheaad and pre-training from scratch***. How can we better **perform NLP task without having to retrain or fine-tune** a model?
-
----
-
-
-
-<!--_class: lead -->
-## Exploit LLMs capacities: Chain-of-thoughts & In context Learning
-
----
-
-
-### Exploit LLMs capacities
-
-ICL enables LLMs to learn new tasks using natural language prompts without explicit retraining or fine-tuning.
-
-The efficacy of ICL is closely tied to the model's scale, training data quality, and domain specificity.
-
----
-
-
-### Exploit LLMs capacities
-
-![height:500px](https://thegradient.pub/content/images/size/w800/2023/04/icl-copy2.png)
-
----
-
-
-### Exploit LLMs capacities
-
-![height:500px](https://lh6.googleusercontent.com/In6MiddAKdLNEjwHeOzkIJlK3FmZank8f2ibBERPReIwTAKkDm4HglsizdjE8O23gmjyPaEFJSMsdRZLiVx5vNE6RLY2pyukmSEh9acYSwBCUNljXpcalKK4d0KUvcRNlEsNG7x4Exn7jDOEHDwbyE0)
-
----
-
-
-### Exploit LLMs capacities
-
-![width:1100px](https://thegradient.pub/content/images/size/w1000/2023/04/Screen-Shot-2023-04-19-at-8.09.07-PM.png)
-
-![width:600px](https://lh6.googleusercontent.com/L_cA-kq0nkDAPO76ju9z8m_3KmZ8nyOIvXrOPoQ9ldAXCR0ACtFOanfCYUllb2g9OBa-2nG5BnsgjKuEPXSlbmgbRNqbS9p3vldqark5wAaTWnGsJofzNzK3GKUsww6byRCgA_AmHcItRgPLoFSk8N0)
-
----
-
-
-### Exploit LLMs capacities
-
-![height:500px](https://www.promptingguide.ai/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzero-cot.79793bee.png&w=1080&q=75)
 
 ---
 
@@ -465,3 +387,31 @@ The efficacy of ICL is closely tied to the model's scale, training data quality,
 ---
 
 [4] Taylor, Ross, Marcin Kardas, Guillem Cucurull, Thomas Scialom, Anthony Hartshorn, Elvis Saravia, Andrew Poulton, Viktor Kerkez, and Robert Stojnic. “[Galactica: A Large Language Model for Science.](https://doi.org/10.48550/arXiv.2211.09085)” arXiv, November 16, 2022.
+
+[5] Nurmambetova, Elvira, et al. "Developing an Inpatient Electronic Medical Record Phenotype for Hospital-Acquired Pressure Injuries: Case Study Using Natural Language Processing Models." JMIR AI 2.1 (2023): e41264.
+
+---
+
+
+[6] Reimers, Nils, and Iryna Gurevych. “[Sentence-BERT: Sentence Embeddings Using Siamese BERT-Networks.](https://doi.org/10.18653/v1/D19-1410)” In Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP), edited by Kentaro Inui, Jing Jiang, Vincent Ng, and Xiaojun Wan, 3982–92. Hong Kong, China: Association for Computational Linguistics, 2019.
+
+---
+
+
+[7] Gao, Tianyu, Xingcheng Yao, and Danqi Chen. “[SimCSE: Simple Contrastive Learning of Sentence Embeddings.](https://doi.org/10.18653/v1/2021.emnlp-main.552)” In Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing, edited by Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott Wen-tau Yih, 6894–6910. Online and Punta Cana, Dominican Republic: Association for Computational Linguistics, 2021.
+
+[8] Oord, Aaron van den, Yazhe Li, and Oriol Vinyals. “[Representation Learning with Contrastive Predictive Coding.](https://doi.org/10.48550/arXiv.1807.03748)” arXiv, January 22, 2019.
+
+---
+
+
+[9] Wang, Liang, Nan Yang, Xiaolong Huang, Binxing Jiao, Linjun Yang, Daxin Jiang, Rangan Majumder, and Furu Wei. “[Text Embeddings by Weakly-Supervised Contrastive Pre-Training.](https://doi.org/10.48550/arXiv.2212.03533)” arXiv, December 7, 2022.
+
+[10] Li, Zehan, Xin Zhang, Yanzhao Zhang, Dingkun Long, Pengjun Xie, and Meishan Zhang. “[Towards General Text Embeddings with Multi-Stage Contrastive Learning.](https://doi.org/10.48550/arXiv.2308.03281)” arXiv, August 6, 2023.
+
+[11] Beltagy, Iz, Matthew E. Peters, and Arman Cohan. “[Longformer: The Long-Document Transformer.](https://doi.org/10.48550/arXiv.2004.05150)” arXiv, December 2, 2020.
+
+---
+
+
+[12] Jiang, Albert Q., Alexandre Sablayrolles, Arthur Mensch, Chris Bamford, Devendra Singh Chaplot, Diego de las Casas, Florian Bressand, et al. “[Mistral 7B.](https://doi.org/10.48550/arXiv.2310.06825)” arXiv, October 10, 2023.
