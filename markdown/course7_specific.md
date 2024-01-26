@@ -356,13 +356,7 @@ Sliding window attention: Mistral 7B [12]
 
 ### State-space models: Mamba
 
-The loss can be the likes of cross-entropy (CE), binary cross-entropy (BCE) or KL-Divergence (KL).
-
-$$\mathcal{L}_{CE} = - \frac{1}{N} \sum_{n'=1}^{N}y^{(n)}.log(f(\textbf{x}, \theta)^{(n)})$$
-
-$$\mathcal{L}_{BCE} = - y^{(n)}.log(f(\textbf{x}, \theta)^{(n)}) + (1 - y^{(n)}).(1 - f(\textbf{x}, \theta)^{(n)})$$
-
-$$\mathcal{L}_{KL} = - \frac{1}{N} \sum_{n'=1}^{N}y^{(n)}.log(\frac{y^{(n)}}{f(\textbf{x}, \theta)^{(n)}})$$
+Gu, Albert, and Tri Dao. “Mamba: Linear-Time Sequence Modeling with Selective State Spaces.” arXiv, December 1, 2023. https://doi.org/10.48550/arXiv.2312.00752.
 
 ---
 
