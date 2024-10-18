@@ -1,4 +1,4 @@
-# Advanced NLP (SCIA / NLP3 & NLP4)
+# Advanced NLP (SCIA / ANLP1 & ANLP2)
 
 ![Banner](static/github_anlp_banner.png)
 

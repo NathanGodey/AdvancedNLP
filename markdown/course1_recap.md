@@ -23,30 +23,41 @@ marp: true
 
 ---
 
-### NLP in 2023
+### NLP in 2024
+<br/>
 
 <center>
-<img width="800px" src="../imgs/course1/chatgpt.png"/>
+<img width="900px" src="../imgs/course1/chatgpt.png"/>
 </center>
 
 ---
 
-### NLP in 2023
+### NLP in 2024
+
+<center>
+<img width="900px" src="../imgs/course1/copilot.png"/>
+</center>
+
+---
+
+### NLP in 2024
+> *A picture of the computer science school EPITA, with the school logo on a banner.*
+
+<center>
+<img width="350px" src="../imgs/course1/epita_gen.jpeg"/>
+</center>
+
+---
+
+### NLP in 2024
 <center>
 <img width="900px" src="../imgs/course1/google.png"/>
 </center>
 
----
-
-### NLP in 2023
-
-<center>
-<img width="350px" src="../imgs/course1/midjourney.png"/>
-</center>
 
 ---
 
-### NLP in 2023
+### NLP in 2024
 
 <center>
 <img width="850px" src="../imgs/course1/knowgraph_hp.png"/>
@@ -58,14 +69,6 @@ marp: true
 
 <center>
 <img width="1000px" src="../imgs/course1/game_agents.png"/>
-</center>
-
----
-
-### NLP perspectives
-
-<center>
-<img width="900px" src="../imgs/course1/copilot.png"/>
 </center>
 
 ---
