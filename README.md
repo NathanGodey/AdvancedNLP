@@ -3,7 +3,7 @@
 ![Banner](static/github_anlp_banner.png)
 
 ## Sessions
-1. Recap on Deep Learning & basic NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course1_recap.pdf) / lab session)
+1. Recap on Deep Learning & basic NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course1_recap.pdf) / [lab session](https://colab.research.google.com/drive/1_QzQBdP289benS8Uo3yPQmtXoM-f80-n?usp=sharing))
 2. Tokenization ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course2_tokenization.pdf) / lab session)
 3. Language Modeling ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course3_lm.pdf) / lab session)
 4. NLP without 2048 GPUs ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course4_efficiency.pdf) / lab session)
@@ -22,11 +22,11 @@ The evaluation consists in a team project (3-5 people). The choice of the subjec
 - It must be reasonably doable: you will not be able to fine-tune (even to use) a 405B parameters model, or to train a model from scratch. That's fine, there are a lot of smaller models that should be good enough, like [the Pythia models](https://huggingface.co/collections/EleutherAI/pythia-scaling-suite-64fb5dfa8c21ebb3db7ad2e1), [TinyLLama](https://huggingface.co/collections/TinyLlama/tinyllama-11b-v1-660bb5bfabd8bd25eebbb1ef) or the 1B parameter [OLMo](https://huggingface.co/collections/allenai/olmo-suite-65aeaae8fe5b6b2122b46778).
 
 :alarm_clock: The project follows 3 deadlines:
-- **Project announcement (before 25/11/24)**: send an email to `nathan.godey@inria.fr` with cc's `matthieu.futeral@inria.fr` and `francis.kulumba@inria.fr` explaining
+- **Project announcement (before 25/10/24)**: send an email to `nathan.godey@inria.fr` with cc's `matthieu.futeral@inria.fr` and `francis.kulumba@inria.fr` explaining
   - The team members (also cc'ed)
   - A vague description of the project (it can change later on)
-- **Project proposal (25% of final grade, before 07/01/23)**: following [this template](https://docs.google.com/document/d/1rCWr6p5N0ip7fpNv9e5wjX7gez4oaFGioatYXRRKGR8/edit?usp=sharing), produce a project proposal explaining first attempts (e.g. version alpha), how they failed/succeeded and what you want to do before the delivery.
-- **Project delivery (75% of final grade, before mid-January)**: delivery of a GitHub repo with an explanatory README + oral presentation on **December 13th**
+- **Project proposal (25% of final grade, before 15/11/24)**: following [this template](https://docs.google.com/document/d/1rCWr6p5N0ip7fpNv9e5wjX7gez4oaFGioatYXRRKGR8/edit?usp=sharing), produce a project proposal explaining first attempts (e.g. version alpha), how they failed/succeeded and what you want to do before the delivery.
+- **Project delivery (75% of final grade, 13/12/24)**: delivery of a GitHub repo with an explanatory README + oral presentation on **December 13th**
 
 ## Inspiring articles
 ### Tokenization
