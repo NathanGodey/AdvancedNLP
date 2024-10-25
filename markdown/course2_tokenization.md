@@ -74,7 +74,7 @@ that are split into...<br>
 
 ### Tokenization & ML
 
-ML-based NLP (mostly) relies on **sub-word** tokenization:
+ML-based NLP (usually) relies on **sub-word** tokenization:
 *  Gives better performance
 *  **Fixed-size vocabulary** often required
     * Out-Of-Vocabulary (OOV) issue
