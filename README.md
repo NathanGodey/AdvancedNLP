@@ -6,7 +6,7 @@
 
 1. Recap on Deep Learning & basic NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course1_recap.pdf) / [lab session](https://colab.research.google.com/drive/1_QzQBdP289benS8Uo3yPQmtXoM-f80-n?usp=sharing))
 2. Tokenization ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course2_tokenization.pdf) / [lab session](https://colab.research.google.com/drive/1xEKz_1LcnkfcEenukIGCrk-Nf_5Hb19s?usp=sharing))
-3. Language Modeling ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course3_lm.pdf) / lab session)
+3. Language Modeling ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course3_lm.pdf) / [lab session](https://colab.research.google.com/drive/1QmVOWC1oB206PmOBn8j0EF54laSh3BBd?usp=sharing))
 4. NLP without 2048 GPUs ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course4_efficiency.pdf) / lab session)
 5. Language Models at Inference Time ([slides](https://raw.githubusercontent.com/NathanGodey/AdvancedNLP/main/slides/pdf/course5_inference.pdf) / lab session)
 6. Handling the Risks of Language Models ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course6_risks.pdf) / lab session)
