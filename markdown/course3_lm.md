@@ -521,10 +521,10 @@ $$
 - A useful evaluation metric: ***Perplexity***
 - Defined as:
 $$
-ppl(T_{\theta}; w_1...w_n) = \sqrt[n]{\frac{1}{P_{\theta}(w_1...w_n)}}
+ppl(T_{\theta}; w_1...w_n) = \exp \left( -\frac{1}{n}\sum_{t=1}^{n}\log P_{\theta}(w_t | w_{<t}) \right)
 $$
 
-- Other metrics: accuracy, f1-score, ...
+- Other metrics: accuracy, MAUVE, ...
 
 ---
 ### Zero-shot evaluation
