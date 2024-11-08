@@ -48,9 +48,8 @@ Scaling language models (LMs) is the go-to solution to achieve greater performan
     b. Speculative decoding
     c. Layer skip: self speculative decoding
 2. More About Performance?
-    b. Retrieval augmented generation (at inference)
-    c. Mixture of agents
-    d. Test-time compute
+    a. Retrieval augmented generation (at inference)
+    b. Test-time compute
 3. More About "Balance"?
     a. Mixture of experts
 
@@ -315,8 +314,202 @@ How does this change inference?
 <!--footer: "More About Performance?" -->
 ### Retrieval augmented generation (at inference)
 
+The goal of retrieval augmented generation (RAG) is to give access to updated knowledge to a model [8].
+<center><img width="1000px" src="https://figures.semanticscholar.org/659bf9ce7175e1ec266ff54359e2bd76e0b7ff31/2-Figure1-1.png"/></center>
+
+RAG's intricacies will be discussed in another chapter.
+
 ---
 
+
+### Retrieval augmented generation (at inference)
+
+RAG-sequence model
+
+$$
+p_{\text{RAG-sequence}}(y | x) \approx \sum_{z \in \text{top-}k} p_{\eta}(z | x) \prod_{i}^{N}p_{\theta}(y_{i} | x, z, y_{1:i-1})
+$$
+
+RAG-token model
+
+$$
+p_{\text{RAG-token}}(y | x) \approx \prod_{i}^{N} \sum_{z \in \text{top-}k} p_{\eta}(z | x) p_{\theta}(y_{i} | x, z, y_{1:i-1})
+$$
+
+---
+
+
+### Retrieval augmented generation (at inference)
+
+- Although conditioned on retrieved knowledge, output may be an hallucination.
+- Most of RAG's performance depend on the chunking method and the retriever.
+
+---
+
+
+### Test time compute
+
+The goal is to **allocate more compute at inference** to **"natively" incorporate chain-of-thoughts** like decoding.
+
+The hypothesis is that **models have good reasoning capabilities** but standard **decoding processes hinder it**.
+
+---
+
+
+### Test time compute
+
+<center><img height="450px" src="https://figures.semanticscholar.org/8292083dd8f6ae898ea0ee54a6b97997d1a51c9d/2-Figure1-1.png"/></center>
+
+[9]
+
+---
+
+
+### Test time compute
+
+**Search against verifiers** [10]:
+
+- Most decoding methods stem from greedy decoding.
+- There is no "correct" way of selecting the first token when decoding.
+
+<center><img width="900px" src="https://figures.semanticscholar.org/c8b1206ef8e6fdebd3b9ad2165937256ab8b5652/2-Figure1-1.png"/></center>
+
+
+---
+
+
+### test time compute
+
+A **reward model (verifier)** selects the **best answer** based on a **systematic search method**:
+
+<center><img width="800px" src="https://figures.semanticscholar.org/8292083dd8f6ae898ea0ee54a6b97997d1a51c9d/8-Figure2-1.png"/></center>
+
+---
+
+
+### Test time compute
+
+**Modifying proposal distribution**:
+
+**Reinforcement learning-like techniques** where a **model learns to refin its own answer** to reach the optimal one: look at **ReST** [12] and **STaR** [11].
+
+Unlinke standard decoding, **the model can backtrack to previous steps**.
+
+---
+
+
+### Test time compute
+
+- Borrowing from **ReST**, one could **create candidate responses during inference** and **assess them against a task-specific quality metric** (without updating weights). The highest-quality candidates can then **guide token sampling**.
+- **STaR’s** multi-path reasoning generation and selection is applicable at test-time by **generating multiple answer paths** and **using consistency checks** or **reranking** to **choose the best response**.
+
+---
+
+
+### Test time compute
+
+Takeaways (DeepMind's scaling laws):
+- Small models (<10b) are better at answering easy questions when given more TTC than pretraning compute.
+- Disminishing return on larger models with more TTC than pretraining compute.
+
+---
+
+
+### Test time compute
+
+<center><img width="800px" src="https://images.ctfassets.net/kftzwdyauwt9/3OO9wpK8pjcdemjd7g50xk/5ec2cc9d11f008cd754e8cefbc1c99f5/compute.png?w=1920&q=80&fm=webp"/></center>
+
+[13]
+
+---
+
+
+<!--_class: lead -->
+## More About "Balance"?
+
+---
+
+
+<!--footer: 'More About "Balance"?' -->
+### Mixture of experts
+
+Replacing every FFN in a transformers with a MoE layer [14]?
+<center><img width="600px" src="https://figures.semanticscholar.org/411114f989a3d1083d90afd265103132fee94ebe/2-Figure1-1.png"/></center>
+
+Divide one FFN network with $M$ parameters into $N$ experts with $M' = \frac{M}{N}$ parameters each.
+
+---
+
+
+### Mixture of experts
+
+<center><img width="800px" src="https://cdn-lfs.hf.co/datasets/huggingface/documentation-images/fee35562b9f02636efc5953fea83f71ed6a42d79f17407372492f0804d67f6f5?response-content-disposition=inline%3B+filename*%3DUTF-8%27%2702_moe_block.png%3B+filename%3D%2202_moe_block.png%22%3B&response-content-type=image%2Fpng&Expires=1731332755&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczMTMzMjc1NX19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5oZi5jby9kYXRhc2V0cy9odWdnaW5nZmFjZS9kb2N1bWVudGF0aW9uLWltYWdlcy9mZWUzNTU2MmI5ZjAyNjM2ZWZjNTk1M2ZlYTgzZjcxZWQ2YTQyZDc5ZjE3NDA3MzcyNDkyZjA4MDRkNjdmNmY1P3Jlc3BvbnNlLWNvbnRlbnQtZGlzcG9zaXRpb249KiZyZXNwb25zZS1jb250ZW50LXR5cGU9KiJ9XX0_&Signature=uDh%7EmWsnJUNUtihhKYmzaxJoPCaCfpaBJQ8lLMl3jUMLAKVc-z5wE8F6xVxJoCk-oNkJnlOUbQnoolQSRqbiG6q6BGepMbEzi6qoLptJCT9yl-ODc4HC8WyfU9l2tZVqlyHOcSyM40n4We%7EEdbh4vKyOag-81GQRD3zG1dKEfZdGg0pbslTcX4hjQCmSLMp1fvkVK3UIo2kEHgLq5kTIigIyckUnZ9wzr7teCp9rzaPHLqy058zvtRaKU018mcWJScQqyDEvbcb7lHu2zhm%7EDHmyqH%7EloaDTSdIKDWMN6XAVMp33Kx8UeYDmUCh9nruhf-C4VXIBh2sl-GwkB5vU2w__&Key-Pair-Id=K3RPWS32NSSJCE"/></center>
+
+---
+
+
+
+### Mixture of experts
+
+- Reduced computational the training and inference since we only need to run $1/N$th of the FFN weights.
+- Instable during training: can strugle to generalized, thus prone to overfitting.
+- Load balancing is curcial: we do not want a subset of experts to be under-utilized.
+
+---
+
+
+### Mixture of experts
+
+A learned gating network $G$ decides which experts $E$ to send a part of the input:
+
+$$
+y = \sum_{i=1}^{n}G(x)_{i} \times E_{i}(x) 
+$$
+
+Where $G(x)_{i}$ denotes the $n$-dimensional output of the gating network for the $i$-th expert, and $E_{i}(x)$ is the output of the $i$-th expert network
+
+---
+
+
+### Mixture of experts
+
+A popular gating function is the softmax function over the top-$k$ logits.
+
+$$
+G(x) := \text{softmax}(\text{top-}k(x \cdot W_{g}))
+$$
+
+In order to have a sparse vector as output
+
+$$
+\text{top-}k(x \cdot W_{g}) =
+\begin{cases}
+    v_{i}       & \text{if } v_{i} \text{ is in the top }k \text{ of } x \cdot W_{g} \\
+    - \infty    & \text{otherwise}
+\end{cases}
+$$
+
+---
+
+
+### Mixture of experts
+
+<center><img width="800px" src="https://figures.semanticscholar.org/411114f989a3d1083d90afd265103132fee94ebe/7-Figure7-1.png"/></center>
+
+---
+
+
+### Mixture of experts
+
+<center><img width="900px" src="https://figures.semanticscholar.org/411114f989a3d1083d90afd265103132fee94ebe/8-Figure8-1.png"/></center>
+
+---
+
+<!--footer: 'Course 4: LMs at Inference Time' -->
+<!--_class: lead -->
+## Questions?
+
+---
 
 <!--_class: lead -->
 ## References
@@ -340,3 +533,23 @@ How does this change inference?
 [6] He, Kaiming, et al. "Deep residual learning for image recognition." Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.
 
 [7] Elhoushi, Mostafa, et al. "Layer skip: Enabling early exit inference and self-speculative decoding." arXiv preprint arXiv:2404.16710 (2024).
+
+---
+
+
+[8] Lewis, Patrick, et al. "Retrieval-augmented generation for knowledge-intensive nlp tasks." Advances in Neural Information Processing Systems 33 (2020): 9459-9474.
+
+[9] Snell, Charlie, et al. "Scaling llm test-time compute optimally can be more effective than scaling model parameters." arXiv preprint arXiv:2408.03314 (2024).
+
+[10] Wang, Xuezhi, and Denny Zhou. "Chain-of-thought reasoning without prompting." arXiv preprint arXiv:2402.10200 (2024).
+
+---
+
+
+[11] Zelikman, Eric, et al. "Star: Bootstrapping reasoning with reasoning." Advances in Neural Information Processing Systems 35 (2022): 15476-15488.
+
+[12] Gulcehre, Caglar, et al. "Reinforced self-training (rest) for language modeling." arXiv preprint arXiv:2308.08998 (2023).
+
+[13] [Learning to Reason with LLMs](https://openai.com/index/learning-to-reason-with-llms/) (2024).
+
+[14] Jiang, Albert Q., et al. "Mixtral of experts." arXiv preprint arXiv:2401.04088 (2024).
