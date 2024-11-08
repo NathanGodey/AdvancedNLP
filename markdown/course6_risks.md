@@ -8,7 +8,7 @@ marp: true
 ---
 
 
-# **Handling the Risks of Language Models**
+# **Course 6: Handling the Risks of Language Models**
 
 ---
 

@@ -199,7 +199,7 @@ How to reduce the distance between $q(x)$ and $p(x)$ when the assistance model i
 
 ### Layer skip: self speculative decoding
 
-Speculative decoding comes with two inconvenients:
+Speculative decoding comes with two inconveniences:
 
 - Loading two models in memory
 - Making sure the assistant model output a token distribution as close as possible to the main model
