@@ -2,7 +2,7 @@
 theme: gaia
 _class: lead
 paginate: true
-title: "Course 4: Efficient NLP"
+title: "Course 5: LMs at Inference Time"
 backgroundColor: #fff
 marp: true
 ---
@@ -12,7 +12,7 @@ marp: true
 ---
 
 
-<!--footer: 'Course 4: LMs at Inference Time' -->
+<!--footer: 'Course 5: LMs at Inference Time' -->
 <!--_class: lead -->
 ## Introduction
 
@@ -30,8 +30,8 @@ Scaling language models (LMs) is the go-to solution to achieve greater performan
 
 ### Background
 
-- Evidently, the more you scale, the more compute you need at inference.
-- Hardware cost can hinder LLMs useless if no  optimization is done.
+- The more you scale, the more compute you need at inference.
+- Hardware costs can hinder LLMs if no  optimization is done.
 - Not all optimization techniques are born equal...
 
 **What are the different responses to the trade-off between an LLM performance and an LLM througput?**
@@ -64,7 +64,7 @@ Scaling language models (LMs) is the go-to solution to achieve greater performan
 <!--footer: "More About Throughput?" -->
 ### Prompt pruning: when KV caching is not enough
 
-Attention matrices need to be calculated for every token constituing an LLM's prompt, leading to latency.
+Attention matrices need to be calculated for every token constituting an LLM's prompt, leading to latency.
 
 - On LLaMa2-70b models, given a long prompt, 23% of the total generation time is accounted for the time to first token (TTFT).
 - KV caching is of no-use in that context...
@@ -76,7 +76,7 @@ How to reduce that TTFT with minimum performance loss?
 
 ### Prompt pruning: when KV caching is not enough
 
-When does KV cachin comes into play?
+When does KV caching comes into play?
 
 <center><img width="1000px" src="https://figures.semanticscholar.org/659e0b3303caa860348dee52f41476e3fddc9573/2-Figure1-1.png"/></center>
 
@@ -98,7 +98,7 @@ Not all tokens are useful to understand/answer the prompt.
 
 How to effectively choose tokens to prune out?
 
-Transformer's attention represent more abstract concept as the compution is done deeper in its layers [3].
+Transformer's attention represents more abstract concept as the compution is done deeper in its layers [3].
 
 The last attention matrices play an important role in the decision boundaries computed by a transformer-based LM [4].
 
@@ -142,7 +142,7 @@ Drawbacks:
 
 An **LLM** can **predict multiple tokens in a single forward pass** :
 
-- **Speculative decoding** [5] allow an LLM to **"guess" future tokens** while generating curent tokens, **all within a single forward pass**.
+- **Speculative decoding** [5] allows an LLM to **"guess" future tokens** while generating current tokens, **all within a single forward pass**.
 - By running a draft model to predict multiple tokens, the main model (larger) only has to verify the predicted tokens for "correctness".
 
 ---
@@ -162,7 +162,7 @@ An **LLM** can **predict multiple tokens in a single forward pass** :
 
 ### Speculative decoding
 
-The main model just verifies that the distribution $q(x)$, computed by the assistant is not to far from the distribution $p(x)$ it computes within a forward pass.
+The main model just verifies that the distribution $q(x)$, computed by the assistant is not too far from the distribution $p(x)$ it computes within a forward pass.
 
 The expected number of tokens generated within one looop of speculative decoding can be theorithically formulated as:
 
@@ -170,7 +170,7 @@ $$
 E(\#generated\_tokens) = \frac{1 - \alpha^{\gamma + 1}}{1 - \alpha}
 $$
 
-Which is # forward passes' reduction factor.
+Which is the forward passes' reduction factor.
 
 ---
 
@@ -186,7 +186,7 @@ The expected number of tokens generated via speculative decoding as a function o
 
 ### Speculative decoding
 
-In order **to take the most out of speculative decoding**, the distance between **$q(x)$ and $p(x)$ need to be minimal**.
+In order **to take the most out of speculative decoding**, the distance between **$q(x)$ and $p(x)$ needs to be minimal**.
 
 How to reduce the distance between $q(x)$ and $p(x)$ when the assistance model is smaller?
 
@@ -202,7 +202,7 @@ How to reduce the distance between $q(x)$ and $p(x)$ when the assistance model i
 Speculative decoding comes with two inconveniences:
 
 - Loading two models in memory
-- Making sure the assistant model output a token distribution as close as possible to the main model
+- Making sure the assistant model outputs a token distribution as close as possible to the main model
 
 ---
 
@@ -211,7 +211,7 @@ Speculative decoding comes with two inconveniences:
 
 Why not let the main model do the speculation itself?
 
-**Transformer models** are believed to be **over-parametrized** and the **last layers specialized** on computing the decision boundaries **before projecting on the LM head**. Maybe we can make **each layer able to project on the LM head**, thus skipping layers [6] and allowing for an **early exit** at inference [7].
+**Transformer models** are believed to be **over-parameterized** and the **last layers specialized** on computing the decision boundaries **before projecting on the LM head**. Maybe we can make **each layer able to project on the LM head**, thus skipping layers [6] and allowing for an **early exit** at inference [7].
 
 ---
 
@@ -341,17 +341,17 @@ $$
 
 ### Retrieval augmented generation (at inference)
 
-- Although conditioned on retrieved knowledge, output may be an hallucination.
-- Most of RAG's performance depend on the chunking method and the retriever.
+- Although conditioned on retrieved knowledge, output may be a hallucination.
+- Most of RAG's performance depends on the chunking method and the retriever.
 
 ---
 
 
 ### Test time compute
 
-The goal is to **allocate more compute at inference** to **"natively" incorporate chain-of-thoughts** like decoding.
+The goal is to **allocate more compute at inference** to **"natively" incorporate chain-of-thought** like decoding.
 
-The hypothesis is that **models have good reasoning capabilities** but standard **decoding processes hinder it**.
+The hypothesis is that **models have good reasoning capabilities** but standard **decoding processes hinder them**.
 
 ---
 
@@ -391,7 +391,7 @@ A **reward model (verifier)** selects the **best answer** based on a **systemati
 
 **Modifying proposal distribution**:
 
-**Reinforcement learning-like techniques** where a **model learns to refin its own answer** to reach the optimal one: look at **ReST** [12] and **STaR** [11].
+**Reinforcement learning-like techniques** where a **model learns to refine its own answer** to reach the optimal one: look at **ReST** [12] and **STaR** [11].
 
 Unlinke standard decoding, **the model can backtrack to previous steps**.
 
@@ -410,7 +410,7 @@ Unlinke standard decoding, **the model can backtrack to previous steps**.
 
 Takeaways (DeepMind's scaling laws):
 - Small models (<10b) are better at answering easy questions when given more TTC than pretraning compute.
-- Disminishing return on larger models with more TTC than pretraining compute.
+- Diminishing return on larger models with more TTC than pretraining compute.
 
 ---
 
@@ -451,9 +451,9 @@ Divide one FFN network with $M$ parameters into $N$ experts with $M' = \frac{M}{
 
 ### Mixture of experts
 
-- Reduced computational the training and inference since we only need to run $1/N$th of the FFN weights.
-- Instable during training: can strugle to generalized, thus prone to overfitting.
-- Load balancing is curcial: we do not want a subset of experts to be under-utilized.
+- Reduced computation during training and inference since we only need to run $1/N$th of the FFN weights.
+- Unstable during training: can struggle to generalize, thus prone to overfitting.
+- Load balancing is crucial: we do not want a subset of experts to be under-utilized.
 
 ---
 
@@ -505,7 +505,7 @@ $$
 
 ---
 
-<!--footer: 'Course 4: LMs at Inference Time' -->
+<!--footer: 'Course 5: LMs at Inference Time' -->
 <!--_class: lead -->
 ## Questions?
 
