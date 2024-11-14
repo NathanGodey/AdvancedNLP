@@ -12,7 +12,7 @@
 6. Handling the Risks of Language Models ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course6_risks.pdf) / lab session)
 7. Advanced NLP tasks ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course7advanced.pdf) / lab session)
 8. Domain-specific NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course8_specific.pdf) / lab session)
-9. Multilingual NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/Course%205%20-%20Multilingual%20NLP.pdf) / [lab session](https://colab.research.google.com/drive/11TX-q-hAdFiSeMVqFp1VCXhi_Ifoj8Rp?usp=sharing))
+9. Multilingual NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/blob/main/slides/pdf/Course%209%20-%20Multilingual%20NLP.pdf) / [lab session](https://colab.research.google.com/drive/11TX-q-hAdFiSeMVqFp1VCXhi_Ifoj8Rp?usp=sharing))
 10. Multimodal NLP ([slides](https://docs.google.com/presentation/d/1K2DgnPSOGXB1hQ4FZoUU-5ppJ4dn_sLC41Ecwmxi2Zk/edit?usp=sharing) / lab session)
 
 ## Evaluation
