@@ -477,7 +477,7 @@ $$
 ---
 ### Decoders - Inference speed
 * For greedy decoding without prefix:
-  * $n$ passes with sequences of length $n$
+  * $n$ passes with sequences of length $1\leq t \leq n$
   * Each pass is $O(n^2)$
   * Complexity: $O(n^3)$
 * Other decoding are <ins>more costly</ins>

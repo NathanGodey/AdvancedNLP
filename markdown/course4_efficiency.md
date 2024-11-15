@@ -87,13 +87,23 @@ $$
     * `bfloat16`: more stability, but only usable with A100-gen GPUs
 
 ---
+### Training LMs - (b)float16
+<br>
+<center><img width="1000px" src="../imgs/course4/bfloat.png"></center>
+
+---
 ### Training LMs - Efficient implementations
 - FlashAttention (Dao et al. 2022)
 <center><img width="1000px" src="../imgs/course4/flashattn_banner.jpeg"/></center>
 
 ---
 ### Training LMs - Efficient implementations
-- FlashAttention2 (Dao et al. 2023)
+- FlashAttention (Dao et al. 2022)
+<center><img width="1000px" src="../imgs/course4/flashattn_banner.jpeg"/></center>
+
+---
+### Training LMs - Efficient implementations
+- FlashAttention 2 & 3 (Dao et al. 2023)
 <center><img width="600px" src="../imgs/course4/flash2.png"/></center>
 
 ---
@@ -159,6 +169,10 @@ $$
 <center><img width="1000px" src="../imgs/course4/fsdp.png"/></center>
 
 ---
+### Training LMs - FSDP
+<center><img width="1000px" src="../imgs/course4/tensor_parallel.png"/></center>
+
+---
 ### Training LMs - DeepSpeed
 - Similar to FSDP:
     - Shares model weights...
@@ -207,6 +221,11 @@ $$
 - Models are usually trained in `float16` or `bfloat16` for stability
 - Needs rescaling: 
 $$ Q_{i_4}(0.3)  \neq 0$$
+
+---
+
+### Quantization
+<center><img width="800px" src="../imgs/course4/quantization.png"/></center>
 
 ---
 
@@ -285,7 +304,7 @@ where $W$ is a weight matrix to quantize into $\hat{W}$, and $X$ are data points
 
 ---
 
-### Sheared Llama (Xia et al. 2023)
+### Pruning - Sheared Llama (Xia et al. 2023)
 * Remove weights that minimize loss increase <center><img width="1000px" src="../imgs/course4/sheared_llama.png"/></center>
 * Continue the pretraining of the obtained reduced model
 
