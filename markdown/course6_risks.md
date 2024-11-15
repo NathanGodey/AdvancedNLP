@@ -56,7 +56,7 @@ We will cover different alignement techniques one can apply during the three sta
 
 
 
-### Contents
+### Content
 
 <style scoped>section{font-size:30px;}</style>
 1. **Preprocessing Methods and Good Practices**
