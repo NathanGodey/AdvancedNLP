@@ -43,14 +43,14 @@ Scaling language models (LMs) is the go-to solution to achieve greater performan
 
 ## Content
 
-1. More About Throughput?
+1. **More About Throughput?**
     a. Prompt pruning, when KV caching is not enough
     b. Speculative decoding
     c. Layer skip: self speculative decoding
-2. More About Performance?
+2. **More About Performance?**
     a. Retrieval augmented generation (at inference)
     b. Test-time compute
-3. More About "Balance"?
+3. **More About "Balance"?**
     a. Mixture of experts
 
 ---
@@ -443,7 +443,7 @@ Divide one FFN network with $M$ parameters into $N$ experts with $M' = \frac{M}{
 
 ### Mixture of experts
 
-<center><img width="800px" src="https://cdn-lfs.hf.co/datasets/huggingface/documentation-images/fee35562b9f02636efc5953fea83f71ed6a42d79f17407372492f0804d67f6f5?response-content-disposition=inline%3B+filename*%3DUTF-8%27%2702_moe_block.png%3B+filename%3D%2202_moe_block.png%22%3B&response-content-type=image%2Fpng&Expires=1731332755&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczMTMzMjc1NX19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5oZi5jby9kYXRhc2V0cy9odWdnaW5nZmFjZS9kb2N1bWVudGF0aW9uLWltYWdlcy9mZWUzNTU2MmI5ZjAyNjM2ZWZjNTk1M2ZlYTgzZjcxZWQ2YTQyZDc5ZjE3NDA3MzcyNDkyZjA4MDRkNjdmNmY1P3Jlc3BvbnNlLWNvbnRlbnQtZGlzcG9zaXRpb249KiZyZXNwb25zZS1jb250ZW50LXR5cGU9KiJ9XX0_&Signature=uDh%7EmWsnJUNUtihhKYmzaxJoPCaCfpaBJQ8lLMl3jUMLAKVc-z5wE8F6xVxJoCk-oNkJnlOUbQnoolQSRqbiG6q6BGepMbEzi6qoLptJCT9yl-ODc4HC8WyfU9l2tZVqlyHOcSyM40n4We%7EEdbh4vKyOag-81GQRD3zG1dKEfZdGg0pbslTcX4hjQCmSLMp1fvkVK3UIo2kEHgLq5kTIigIyckUnZ9wzr7teCp9rzaPHLqy058zvtRaKU018mcWJScQqyDEvbcb7lHu2zhm%7EDHmyqH%7EloaDTSdIKDWMN6XAVMp33Kx8UeYDmUCh9nruhf-C4VXIBh2sl-GwkB5vU2w__&Key-Pair-Id=K3RPWS32NSSJCE"/></center>
+<center><img width="1000px" src="https://ai2-s2-public.s3.amazonaws.com/figures/2017-08-08/fdacf2a732f55befdc410ea927091cad3b791f13/5-Figure2-1.png"/></center>
 
 ---
 
