@@ -2,7 +2,7 @@
 theme: gaia
 _class: lead
 paginate: true
-title: "Course 6: Advanced NLP Tasks"
+title: "Course 7: Advanced NLP Tasks"
 backgroundColor: #fff
 marp: true
 ---
@@ -12,22 +12,40 @@ marp: true
 
 ---
 
-<!--footer: "Course 6: Advanced NLP Tasks" -->
-
-
-### Contents
-
-1. Named Entity Recognition (NER)
-    a. Part-of-Speech Tagging (POS)
-    b. Conditional Random Field (CRF)
-2. Sentiment Analysis
-3. QuestionAnswering (QA)
-4. Natural Language Inference (NLI)
-    a. Going further: LM as knowledge graphs
-5. Exploit LLMs capacities: Chain-of-thoughts & In context learning
+<!--footer: "Course 7: Advanced NLP Tasks" -->
+<!--_class: lead -->
+## Introduciton
 
 ---
 
+
+### Introduction
+
+**Information extraction (IE)** is the task of **automatically extracting structured information from unstructured** and/or **semi-structured** machine-readable **documents** and other electronically represented sources.
+
+---
+
+### Introduction
+
+As NLP evolves, so do IE tasks. Traditional tasks evolve, and new ones emerge out of necessity. 
+
+What are the most common IE tasks, and what are their related tasks?
+
+---
+
+
+## Contents
+
+1. **Named Entity Recognition (NER)**
+    a. Part-of-Speech Tagging (POS)
+    b. Conditional Random Field (CRF)
+2. **Sentiment Analysis**
+3. **QuestionAnswering (QA)**
+4. **Natural Language Inference (NLI)**
+5. **Going further: LM as knowledge graphs**
+6. **Exploit LLMs capacities: Chain-of-thoughts & In context learning**
+
+---
 
 
 <!--_class: lead -->
@@ -36,16 +54,20 @@ marp: true
 ---
 
 
-### NER
+<!--footer: "Named Entity Recognition (NER)" -->
+### Part-of-Speech Tagging (POS)
 
-Named entity recognition (NER), aims at identifying real-world entity mentions from texts, and classifying them into predefined types.
+Named entity recognition (**NER**), aims at **identifying real-world entity mentions from texts**, and **classifying them** into **predefined types**.
 
-![height:300px](../imgs/course6/ner_example.png)
+Example:
+"<span style="color:purple;">Suxamethonium</span> infusion rate and observed <span style="color:blue;">fasciculations</span>."
+
+"<span style="color:purple;">Suxamethonium chloride</Span> (<span style="color:purple;">Sch</span>) was administred i.v."
 
 ---
 
 
-### NER
+### Part-of-Speech Tagging (POS)
 
 We wish to predict an output vector $\textbf{y} = (y_{1}, y_{1}, ..., y_{L})$, of random variables, given an observed characteristic vector $\textbf{x} = (x_{1}, x_{2}, ..., x_{L})$
 
@@ -74,7 +96,7 @@ There several levels of granularity.: using [the tag set for english](https://ww
 
 ### Conditional Random Field (CRF)
 
-![width:500px](../imgs/course6/token_classification_model.png)
+<center><img width="600px" src="https://ubiai.tools/wp-content/uploads/2023/12/bert-for-ner.png"/></center>
 
 ---
 
@@ -121,6 +143,7 @@ P(\textbf{y}|\textbf{x}) &= \prod_{l=2}^{L}p(\textbf{y}|f(\textbf{x}, \theta)_{l
 
 ---
 
+### Conditional Random Field (CRF)
 
 $$\begin{flalign}
 P(\textbf{y}|\textbf{x}) &= \frac{exp[{\sum_{l=2}^{L}\textbf{(}f(\textbf{x}, \theta)_{l}^{(n)} + t(y^{(n)}_{l}, y_{l-1})}\textbf{)}]}{\sum_{n'=1}^{N}exp[{\sum_{l=2}^{L}\textbf{(}f(\textbf{x}, \theta)_{l}^{(n')} + t(y^{(n')}_{l}, y_{l-1})}\textbf{)}]}\\
@@ -147,21 +170,21 @@ How do we proceed?
 
 ### Conditional Random Field (CRF)
 
-![height:450px](https://raw.githubusercontent.com/PythonWorkshop/intro-to-nlp-with-pytorch/master/images/viterbi.png)
+<center><img height="500px" src="https://raw.githubusercontent.com/PythonWorkshop/intro-to-nlp-with-pytorch/master/images/viterbi.png"/></center>
 
 ---
 
 
 ### Conditional Random Field (CRF)
 
-![height:450px](https://raw.githubusercontent.com/PythonWorkshop/intro-to-nlp-with-pytorch/master/images/crf_transition_matrix.png)
+<center><img height="500px" src="https://raw.githubusercontent.com/PythonWorkshop/intro-to-nlp-with-pytorch/master/images/crf_transition_matrix.png"/></center>
 
 ---
 
 
 ### Conditional Random Field (CRF)
 
-![height:450px](https://raw.githubusercontent.com/PythonWorkshop/intro-to-nlp-with-pytorch/master/images/linear_crf_example.png)
+<center><img height="500px" src="https://raw.githubusercontent.com/PythonWorkshop/intro-to-nlp-with-pytorch/master/images/linear_crf_example.png"/></center>
 
 ---
 
@@ -203,13 +226,14 @@ If we fix $c = max\{U(\textbf{x}, y^{(1)}_{l}) + T(y^{(1)}_{l}, y_{l-1}), ..., U
 ---
 
 
-
+<!--footer: "Course 7: Advanced NLP Tasks" -->
 <!--_class: lead -->
 ## Sentiment Analysis
 
 ---
 
 
+<!--footer: "Sentiment Analysis" -->
 ### Sentiment Analysis
 
 **Sentiment analysis** is a sentence classification task aiming at **automatically mapping data to their sentiment**.
@@ -221,7 +245,7 @@ It can be **binary** classification (e.g., positive or negative) or **multiclass
 
 ### Sentiment Analysis
 
-![width:650px](https://media.geeksforgeeks.org/wp-content/uploads/20230802120409/Single-Sentence-Classification-Task.png)
+<center><img height="500px" src="https://media.geeksforgeeks.org/wp-content/uploads/20230802120409/Single-Sentence-Classification-Task.png"/></center>
 
 ---
 
@@ -239,35 +263,30 @@ $$\mathcal{L}_{KL} = - \frac{1}{N} \sum_{n'=1}^{N}y^{(n)}.log(\frac{y^{(n)}}{f(\
 ---
 
 
+<!--footer: "Course 7: Advanced NLP Tasks" -->
 <!--_class: lead -->
 ## Question Answering (QA)
 
 ---
 
 
-### Question Answering (QA)
+<!--footer: "Question Answering (QA)" -->
+### QA
 
 **QA** is the task of **retrieving a span of text from a context** that is best suited to answer a question.
 
-This task is extractive -> **information retrieval**
+This task is extractive, and can be seen as information retrieval (more on that later).
 
 ---
 
 
-### Question Answering (QA)
+### QA
 
-![width:1000px](https://miro.medium.com/v2/resize:fit:1093/1*UgytWW_huSrfWtGUV5vmNQ.png)
-
----
-
-
-### Question Answering (QA)
-
-![width:1150px](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter7/qa_labels.svg)
+<center><img height="500px" src="https://scaleway.com/cdn-cgi/image/width=3840/https://www-uploads.scaleway.com/blog-squadbert.webp"/></center>
 
 ---
 
-### Question Answering (QA)
+### QA
 
 The loss is the cross entropy over the output of the starting token and the ending one:
 
@@ -276,22 +295,24 @@ $$\mathcal{L}_{CE_{QA}} = \mathcal{L}_{CE_{start}} + \mathcal{L}_{CE_{end}}$$
 ---
 
 
-
+<!--footer: "Course 7: Advanced NLP tasks" -->
 <!--_class: lead -->
 ## Natural Language Inference (NLI)
 
 ---
 
 
-### Natural Language Inference (NLI)
+<!--footer: "Natural Language Inference (NLI)" -->
+### NLI
 
 **NLI** is the task of **determining whether a "hypothesis" is true (entailment), false (contradiction), or undetermined (neutral)** given a "premise". [1]
 
 ---
 
 
-### Natural Language Inference (NLI)
+### NLI
 
+<style scoped>section{font-size:30px;}</style>
 Premise|Label|Hypothesis
 -------|-----|----------
 A man inspects the uniform of a figure in some East Asian country.|contradiction|The man is sleeping.
@@ -301,14 +322,14 @@ A soccer game with multiple males playing.|entailment|Some men are playing a spo
 ---
 
 
-### Natural Language Inference (NLI)
+### NLI
 
-![width:550px](https://nlp.gluon.ai/_images/bert-sentence-pair.png)
+<center><img height="500px" src="https://nlp.gluon.ai/_images/bert-sentence-pair.png"/></center>
 
 ---
 
 
-### Natural Language Inference (NLI)
+### NLI
 
 The loss is simply the cross entropy or the divergence over the output of the `CLS` token and the true label.
 
@@ -321,87 +342,84 @@ Is it possible to help the model infering more information with les text data?
 ---
 
 
+<!--footer: "Course 7: Advanced NLP tasks" -->
+<!--_class: lead -->
+## Going Further: LM as Knowledge Graphs
+
+---
+
+
+<!--footer: "Going Further: LM as Knowledge Graphs" -->
 ### Going Further: LM as Knowledge Graphs
 
-Yasunaga, M., Bosselut, A., Ren, H., Zhang, X., Manning, C. D., Liang, P. S., & Leskovec, J. (2022). [Deep bidirectional language-knowledge graph pretraining](https://arxiv.org/abs/2210.09338). Advances in Neural Information Processing Systems, 35, 37309-37323.
+<center><img width="1000px" src="https://figures.semanticscholar.org/ad3dfb2514cb0c899fcb9a14d229ff2a6018892f/2-Figure1-1.png"/></center>
 
 ---
 
 
 ### Going Further: LM as Knowledge Graphs
 
-![height:500px](../imgs/course6/dragon_sampling.PNG)
+<center><img width="1000px" src="https://figures.semanticscholar.org/ad3dfb2514cb0c899fcb9a14d229ff2a6018892f/7-Table1-1.png"/></center>
+
+Improvements are mostly on dataset with few training examples and complicated examples (negations, non-verbal sentences, ...).
 
 ---
 
 
 ### Going Further: LM as Knowledge Graphs
 
-![height:500px](../imgs/course6/dragon_training.PNG)
+This architecture ***involves a KG ready to use beforehead and pre-training from scratch***.
+
+How can we better **perform NLP task without having to retrain or fine-tune** a model?
 
 ---
 
 
-### Going Further: LM as Knowledge Graphs
-
-This architecture ***involves a KG ready to use beforeheaad and pre-training from scratch***. How can we better **perform NLP task without having to retrain or fine-tune** a model?
-
----
-
-
-
+<!--footer: "Course 7: Advanced NLP tasks" -->
 <!--_class: lead -->
 ## Exploit LLMs capacities: Chain-of-thoughts & In context Learning
 
 ---
 
 
+<!--footer: "Exploit LLMs capacities: Chain-of-thoughts & In context Learning" -->
 ### Exploit LLMs capacities
 
-ICL enables LLMs to learn new tasks using natural language prompts without explicit retraining or fine-tuning.
+**ICL** enables LLMs to **learn new tasks** using natural language prompts **without explicit retraining or fine-tuning**.
 
-The efficacy of ICL is closely tied to the model's scale, training data quality, and domain specificity.
+The **efficacy** of ICL is **closely tied to** the model's **size**, training **data quality**, and **domain specificity**.
 
 ---
 
 
 ### Exploit LLMs capacities
 
-![height:500px](https://thegradient.pub/content/images/size/w800/2023/04/icl-copy2.png)
+<center><img height="500px" src="https://thegradient.pub/content/images/size/w800/2023/04/icl-copy2.png"/></center>
 
 ---
 
 
 ### Exploit LLMs capacities
 
-![height:500px](https://lh6.googleusercontent.com/In6MiddAKdLNEjwHeOzkIJlK3FmZank8f2ibBERPReIwTAKkDm4HglsizdjE8O23gmjyPaEFJSMsdRZLiVx5vNE6RLY2pyukmSEh9acYSwBCUNljXpcalKK4d0KUvcRNlEsNG7x4Exn7jDOEHDwbyE0)
+<center><img height="500px" src="https://lh6.googleusercontent.com/In6MiddAKdLNEjwHeOzkIJlK3FmZank8f2ibBERPReIwTAKkDm4HglsizdjE8O23gmjyPaEFJSMsdRZLiVx5vNE6RLY2pyukmSEh9acYSwBCUNljXpcalKK4d0KUvcRNlEsNG7x4Exn7jDOEHDwbyE0"/></center>
 
 ---
 
 
 ### Exploit LLMs capacities
 
-![width:1100px](https://thegradient.pub/content/images/size/w1000/2023/04/Screen-Shot-2023-04-19-at-8.09.07-PM.png)
-
-![width:600px](https://lh6.googleusercontent.com/L_cA-kq0nkDAPO76ju9z8m_3KmZ8nyOIvXrOPoQ9ldAXCR0ACtFOanfCYUllb2g9OBa-2nG5BnsgjKuEPXSlbmgbRNqbS9p3vldqark5wAaTWnGsJofzNzK3GKUsww6byRCgA_AmHcItRgPLoFSk8N0)
+<center><img height="500px" src="https://lh6.googleusercontent.com/L_cA-kq0nkDAPO76ju9z8m_3KmZ8nyOIvXrOPoQ9ldAXCR0ACtFOanfCYUllb2g9OBa-2nG5BnsgjKuEPXSlbmgbRNqbS9p3vldqark5wAaTWnGsJofzNzK3GKUsww6byRCgA_AmHcItRgPLoFSk8N0"/></center>
 
 ---
 
 
 ### Exploit LLMs capacities
 
-![height:500px](https://www.promptingguide.ai/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzero-cot.79793bee.png&w=1080&q=75)
+<center><img height="500px" src="https://www.promptingguide.ai/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzero-cot.79793bee.png&w=1080&q=75"/></center>
 
 ---
 
 
-
+<!--footer: "Course 7: Advanced NLP tasks" -->
 <!--_class: lead -->
 ## Questions?
-
----
-
-
-### References
-
-[1] https://paperswithcode.com/task/natural-language-inference
