@@ -258,14 +258,15 @@ Embedding **pooling** is the process of **combining token embeddings** from an e
 
 <center><img height="400" src="https://d3i71xaburhd42.cloudfront.net/93d63ec754f29fa22572615320afe0521f7ec66d/3-Figure1-1.png"/></center>
 
-[6]
+**NB**: when your output pooled vectors are scaled, the cosine similarity is equal to the dot product.
 
 ---
 
 
 ### Représentations out-of-the-box: limitations
 
-<center><img width="800" src="https://figures.semanticscholar.org/590432f953b6ce1b4b36bf66a2ac65eeee567515/3-Figure1-1.png"/></center>
+Late interaction:
+<center><img width="700" src="https://figures.semanticscholar.org/590432f953b6ce1b4b36bf66a2ac65eeee567515/3-Figure1-1.png"/></center>
 
 ---
 

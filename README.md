@@ -11,7 +11,7 @@
 5. Language Models at Inference Time ([slides](https://raw.githubusercontent.com/NathanGodey/AdvancedNLP/main/slides/pdf/course5_inference.pdf) / [lab session](https://colab.research.google.com/drive/13Q1WVHDvmFX4pDQ9pSr0KrggBnPtBSPX?usp=sharing))
 6. Handling the Risks of Language Models ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course6_risks.pdf) / [lab session](https://colab.research.google.com/drive/1BSrIa5p-f2UvJEH-Y0ezniJcOoRHltMm?usp=sharing))
 7. Advanced NLP tasks ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course7_advanced.pdf) / [lab session](https://colab.research.google.com/drive/1b43gxnijKdGOU9llPEC-x2dd_E89ROk1?usp=sharing))
-8. Domain-specific NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course8_specific.pdf) / lab session)
+8. Domain-specific NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/raw/main/slides/pdf/course8_specific.pdf) / [lab session](https://colab.research.google.com/drive/1RUwYAl__CjkkWcsw6gAmlpX3OUszWm-9?usp=sharing))
 9. Multilingual NLP ([slides](https://github.com/NathanGodey/AdvancedNLP/blob/main/slides/pdf/Course%209%20-%20Multilingual%20NLP.pdf) / [lab session](https://colab.research.google.com/drive/11TX-q-hAdFiSeMVqFp1VCXhi_Ifoj8Rp?usp=sharing))
 10. Multimodal NLP ([slides](https://docs.google.com/presentation/d/1K2DgnPSOGXB1hQ4FZoUU-5ppJ4dn_sLC41Ecwmxi2Zk/edit?usp=sharing) / lab session)
 
