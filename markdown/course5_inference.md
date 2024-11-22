@@ -270,7 +270,7 @@ $$
 $$
 C(t, l) =
 \begin{cases}
-    1 & \text{if there is no ealr exit at layer } l\\
+    1 & \text{if there is no early exit at layer } l\\
     0 & \text{otherwise}
 \end{cases}
 $$
@@ -305,6 +305,7 @@ How does this change inference?
 ---
 
 
+<!--footer: "Course 5: LMs at inference Time" -->
 <!--_class: lead -->
 ## More About Performance?
 
@@ -423,7 +424,7 @@ Takeaways (DeepMind's scaling laws):
 
 ---
 
-
+<!--footer: "Course 5: LMs at inference Time" -->
 <!--_class: lead -->
 ## More About "Balance"?
 
